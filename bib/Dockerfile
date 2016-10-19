@@ -36,9 +36,11 @@ RUN set -ex \
 ENV PATH /usr/local/bin/miniconda3/bin:$PATH
 
 # install python2.7 (installed in /usr/bin/), java 1.7+ (required for google cloud SDK)
+# and maven (required for dockerflow)
 RUN set -ex \
     && apt-get install -y python2.7 \ 
-    && apt-get install -y default-jdk 
+    && apt-get install -y default-jdk \
+    && apt-get install -y maven 
 
 # install google cloud sdk
 ENV CLOUD_SDK_REPO "cloud-sdk-$(lsb_release -c -s)"
@@ -48,6 +50,16 @@ RUN set -ex \
     sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list \
     && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - \
     && apt-get update && apt-get install google-cloud-sdk
+
+# install dockerflow
+WORKDIR /usr/local/bin
+RUN set -ex \
+    && git clone https://github.com/googlegenomics/dockerflow \
+    && cd dockerflow \
+    && mvn package -DskipTests \
+    && export DOCKERFLOW_HOME="$(pwd)" \
+    && export PATH="${PATH}":"${DOCKERFLOW_HOME}/bin" \
+    && chmod +x bin/*
 
 # install sudo (installed above); mandatory to install nodejs v6.x.x
 RUN set -ex \
