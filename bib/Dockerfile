@@ -7,14 +7,16 @@ RUN set -ex \
 
 WORKDIR /usr/local/bin
 
-# apt update and install vim, git, wget, gcc, g++, make, bzip2
+# apt update and install vim, git, wget, gcc, g++, make, bzip2, sudo, curl
 RUN set -ex \
     && apt-get update -y \
     && apt-get install -y vim \
     && apt-get install -y git \
     && apt-get install -y wget \
     && apt-get install -y gcc g++ make \
-    && apt-get install -y bzip2
+    && apt-get install -y bzip2 \
+    && apt-get install -y sudo \
+    && apt-get install -y curl
 
 # install python
 RUN set -ex \
@@ -33,10 +35,22 @@ RUN set -ex \
 
 ENV PATH /usr/local/bin/miniconda3/bin:$PATH
 
-# install sudo; mandatory to install nodejs v6.x.x
+# install python2.7 (installed in /usr/bin/), java 1.7+ (required for google cloud SDK)
 RUN set -ex \
-    && apt-get install -y sudo \
-    && apt-get install -y curl \
+    && apt-get install -y python2.7 \ 
+    && apt-get install -y default-jdk 
+
+# install google cloud sdk
+ENV CLOUD_SDK_REPO "cloud-sdk-$(lsb_release -c -s)"
+
+RUN set -ex \
+    && echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | \
+    sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - \
+    && apt-get update && apt-get install google-cloud-sdk
+
+# install sudo (installed above); mandatory to install nodejs v6.x.x
+RUN set -ex \
     && curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
     && apt-get install -y nodejs \
     && apt-get install -y build-essential \
