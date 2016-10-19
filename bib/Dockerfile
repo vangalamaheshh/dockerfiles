@@ -43,7 +43,7 @@ RUN set -ex \
     && apt-get install -y maven 
 
 # install google cloud sdk
-ENV CLOUD_SDK_REPO "cloud-sdk-$(lsb_release -c -s)"
+ENV CLOUD_SDK_REPO "cloud-sdk-xenial"
 
 RUN set -ex \
     && echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | \
@@ -56,10 +56,11 @@ WORKDIR /usr/local/bin
 RUN set -ex \
     && git clone https://github.com/googlegenomics/dockerflow \
     && cd dockerflow \
-    && mvn package -DskipTests \
-    && export DOCKERFLOW_HOME="$(pwd)" \
-    && export PATH="${PATH}":"${DOCKERFLOW_HOME}/bin" \
-    && chmod +x bin/*
+    && mvn package -DskipTests 
+    
+ENV DOCKERFLOW_HOME /usr/local/bin/dockerflow
+ENV PATH "${PATH}:${DOCKERFLOW_HOME}/bin"
+RUN set -ex && chmod +x /usr/local/bin/dockerflow/bin/*
 
 # install sudo (installed above); mandatory to install nodejs v6.x.x
 RUN set -ex \
