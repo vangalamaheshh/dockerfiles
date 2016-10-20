@@ -70,6 +70,34 @@ RUN set -ex \
     && npm install --global webpack \
     && npm install --global angular-cli
 
-EXPOSE 8000
+# BiB app uses python flask and nodejs express servers
+# install flask
+RUN set -ex \
+    && echo y | conda install flask
+ENV LC_ALL "C.UTF-8"
+ENV LANG "C.UTF-8"
+
+# clone bib git repo
+RUN set -ex \
+    && git clone https://github.com/vangalamaheshh/bib.git
+
+WORKDIR /usr/local/bin/bib
+
+# Run npm install client dependencies
+RUN set -ex \
+    && npm install
+
+WORKDIR /usr/local/bin/bib/server/express
+
+# Run npm install server (express) dependencies
+RUN set -ex \
+    && npm install
+
+ENV FLASK_APP /usr/local/bin/bib/server/flask/server.py
+
+EXPOSE 8000 7999 7998
+
+WORKDIR /usr/local/bin/bib
+CMD run_servers.bash
 
 
