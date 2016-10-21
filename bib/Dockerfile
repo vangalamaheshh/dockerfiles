@@ -95,13 +95,11 @@ RUN set -ex \
 
 ENV FLASK_APP /usr/local/bin/bib/server/flask/server.py
 
-EXPOSE 8000 
-#EXPOSE 7999 
-#EXPOSE 7998
+EXPOSE 8000 7999 7998 
 
 WORKDIR /usr/local/bin/bib
 RUN set -ex \
-    && git pull
+    && apt-get update \
+    && git pull 
 CMD ["/bin/bash", "./run_servers.bash"]
-
 
