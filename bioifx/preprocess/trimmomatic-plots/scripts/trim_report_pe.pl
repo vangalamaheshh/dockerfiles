@@ -6,14 +6,14 @@ use File::Basename;
 
 my $options = parse_options();
 my ($trim_info, $samples) = get_trim_info($$options{ 'trim_log_file' });
-print_trim_info($trim_info, $samples);
+print_trim_info($trim_info, $samples, $$options{'output_file'});
 exit $?;
 
 sub parse_options {
     my $options = {};
-    GetOptions($options, 'trim_log_file|l=s@', 'help|h');
-    unless($$options{'trim_log_file'}) {
-        print STDERR "Usage: $0 <--trim_log_file|-l> [--trim_log_file|-l]\n";
+    GetOptions($options, 'trim_log_file|l=s@', 'output_file|o=s', 'help|h');
+    unless($$options{'trim_log_file'} or $$options{'output_file'}) {
+        print STDERR "Usage: $0 <--trim_log_file|-l> <--output_file|-o> [--trim_log_file|-l]\n";
         exit 1;
     }
     return $options;
@@ -42,9 +42,11 @@ sub get_trim_info {
 }
 
 sub print_trim_info {
-    my($trim_info, $samples) = @_;
-    print STDOUT join( ",", qw(SampleName TotalReads BothSurviving LeftMateOnly RightMateOnly Dropped) ), "\n";
+    my($trim_info, $samples, $output_file) = @_;
+    open(OFH, ">$output_file") or die "Error in opening the file, $output_file, $!\n";
+    print OFH join( ",", qw(SampleName TotalReads BothSurviving LeftMateOnly RightMateOnly Dropped) ), "\n";
     foreach my $sample(@$samples) {
-        print STDOUT join( ",", ( $sample, @{ $$trim_info{ $sample } } ) ), "\n";              
+        print OFH join( ",", ( $sample, @{ $$trim_info{ $sample } } ) ), "\n";              
     }
+    close OFH or die "Error closing the out file handle, $output_file, $!\n";
 }
