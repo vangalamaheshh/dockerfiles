@@ -7,7 +7,7 @@
 # @date: May, 23, 2016
 #---------------------------------
 
-preprocess <- function(rpkm_file, sample_names, filter_miRNA,
+preprocess <- function(rpkm_file, filter_miRNA,
                        min_genes, min_samples, rpkm_cutoff) {
     
 	rpkmTable <- read.csv(rpkm_file, header=T, check.names=F,
@@ -18,8 +18,7 @@ preprocess <- function(rpkm_file, sample_names, filter_miRNA,
   	}
 
   	rpkmTable <- na.omit(rpkmTable)
-  	df = rpkmTable[,sample_names]
-  	sub_df <- df[apply(df, 1, function(x) length(x[x>=rpkm_cutoff])>min_samples),]
+  	sub_df <- rpkmTable[apply(rpkmTable, 1, function(x) length(x[x>=rpkm_cutoff])>min_samples),]
   	sub_df <- log2(sub_df + 1)
 
   	if (filter_miRNA == TRUE) {
@@ -38,13 +37,12 @@ preprocess <- function(rpkm_file, sample_names, filter_miRNA,
 
 args <- commandArgs( trailingOnly = TRUE )
 rpkm_file <- args[1]
-sample_names <- unlist(strsplit(args[2], split=" "))
-filter_miRNA <- args[3]
-numgenes <- args[4]
-min_samples <- args[5]
-RPKM_cutoff <- args[6]
-out_file <- args[7]
+filter_miRNA <- args[2]
+numgenes <- args[3]
+min_samples <- args[4]
+RPKM_cutoff <- args[5]
+out_file <- args[6]
 
-filtered_cuff <- preprocess(rpkm_file, sample_names, filter_miRNA,
+filtered_cuff <- preprocess(rpkm_file, filter_miRNA,
 				numgenes, min_samples, RPKM_cutoff)
 write.csv(filtered_cuff, file=out_file, quote=FALSE)
