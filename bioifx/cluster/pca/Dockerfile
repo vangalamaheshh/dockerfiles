@@ -10,7 +10,7 @@ WORKDIR /usr/local/bin
 RUN set -ex \
   && apt-get update -y \
   && apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev git \
-  && echo 'install.packages(c("argparse", "devtools"), \
+  && echo 'install.packages(c("argparse", "devtools", "ggrepel"), \
     repos="http://cran.us.r-project.org", dependencies=TRUE)' > /usr/local/bin/packages.R \
   && Rscript /usr/local/bin/packages.R \
   && Rscript -e 'require(devtools); install_github("vangalamaheshh/ggbiplot");'
