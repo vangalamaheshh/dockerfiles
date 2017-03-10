@@ -15,8 +15,10 @@ library("dplyr")
 
 #register(MulticoreParam(6))
 
-meta <- read.csv("metasheet.csv", header = TRUE, row.names = 1, sep = ",")
-counts <- read.csv("STAR.csv", header = TRUE, row.names = 1, sep = ",")
+args <- commandArgs(trailingOnly = TRUE)
+
+meta <- read.csv(args[1], header = TRUE, row.names = 1, sep = ",")
+counts <- read.csv(args[2], header = TRUE, row.names = 1, sep = ",")
 
 meta <- meta[, grepl("comp_*", colnames(meta)), drop = FALSE]
 
