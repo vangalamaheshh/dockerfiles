@@ -35,7 +35,7 @@ RUN set -ex \
 RUN set -ex \
   && apt-get update -y \
   && apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev git \
-  && echo 'install.packages(c("ggplot2", "dplyr"), \
+  && echo 'install.packages(c("ggplot2", "dplyr", "ggrepel"), \
     repos="http://cran.us.r-project.org", dependencies=TRUE)\n\
     source("https://bioconductor.org/biocLite.R")\n\
     biocLite(pkgs = c("BiocParallel", "DESeq2"), ask = FALSE)' > /usr/local/bin/packages.R \
