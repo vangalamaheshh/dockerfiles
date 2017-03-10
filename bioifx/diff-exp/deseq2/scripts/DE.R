@@ -30,12 +30,12 @@ for (comp in colnames(meta)) {
   res <- na.omit(res)
   rownames(res) <- NULL
   res <- mutate(as.data.frame(res), sig = ifelse(res$padj < 0.05, 'FDR < 0.05', "Not Significant"))
-  png(paste(comp, "/", comp, ".volcano.png", sep = ""), width = 8, height = 8, unit="in",res=300 )
+  #png(paste(comp, "/", comp, ".volcano.png", sep = ""), width = 8, height = 8, unit="in",res=300 )
   volcano_plot <- ggplot(res, aes(log2FoldChange, -log10(pvalue))) +
     geom_point(aes(col = sig)) +
     scale_color_manual(values = c("red", "black"))
-  volcano_plot <- volcano_plot + geom_text_repel(data = filter(res, padj < 0.05), aes(label = Gene))
-  volcano_plot
-  dev.off()
+  volcano_plot <- volcano_plot + geom_text_repel(data = res[1:min(20, length(res)), ], aes(label = factor(Gene)), size = 3, fontface = "bold", box.padding = unit(0.5, "lines"), point.padding = unit(1.6, "lines"), segment.color = "#555555", segment.size = 0.5, arrow = arrow(length = unit(0.01, "npc")), force = 1, max.iter = 2000)
+  ggsave(file = paste(comp, "/", comp, ".volcano.png", sep = ""), volcano_plot) 
+  #dev.off()
 }
 
