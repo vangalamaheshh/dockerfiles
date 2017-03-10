@@ -44,9 +44,9 @@ for (comp in colnames(meta)) {
   volcano_plot <- ggplot(res, aes(log2FoldChange, -log10(pvalue))) +
     geom_point(aes(col = sig)) +
     scale_color_manual(values = c("red", "black"))
-  volcano_plot <- volcano_plot + geom_text_repel(data = res[1:min(20, length(res)), ], \
-    aes(label = factor(Gene)), size = 3, fontface = "bold", box.padding = unit(0.5, "lines"), \
-    point.padding = unit(1.6, "lines"), segment.color = "#555555", segment.size = 0.5, \
+  volcano_plot <- volcano_plot + geom_text_repel(data = res[1:min(20, length(res)), ], 
+    aes(label = factor(Gene)), size = 3, fontface = "bold", box.padding = unit(0.5, "lines"), 
+    point.padding = unit(1.6, "lines"), segment.color = "#555555", segment.size = 0.5, 
     arrow = arrow(length = unit(0.01, "npc")), force = 1, max.iter = 2000)
   ggsave(file = paste(comp, "/", comp, ".volcano.png", sep = ""), volcano_plot) 
 }
