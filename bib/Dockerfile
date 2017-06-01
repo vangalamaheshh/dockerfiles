@@ -68,7 +68,7 @@ RUN set -ex \
     && apt-get install -y nodejs \
     && apt-get install -y build-essential \
     && npm install --global webpack \
-    && npm install --global angular-cli
+    && npm install --global @angular/cli@1.1.0
 
 # BiB app uses python flask and nodejs express servers
 # install flask
