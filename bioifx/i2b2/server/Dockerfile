@@ -40,5 +40,5 @@ RUN set -ex \
 EXPOSE 8080
 EXPOSE 8009
 
-CMD ["${JBOSS_HOME}/bin/standalone.sh", "-b", "0.0.0.0"]
+CMD ["/usr/local/bin/wildfly/wildfly-10.0.0.Final/bin/standalone.sh", "-b", "0.0.0.0"]
 	
