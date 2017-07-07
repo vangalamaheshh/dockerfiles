@@ -9,7 +9,7 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 #------------------------------#
 RUN set -ex \
   && apt-get update -y \
-  && apt-get install -y build-essential libxml2-dev libcurl4-openssl-dev curl unzip \
+  && apt-get install -y build-essential libxml2-dev libcurl4-openssl-dev curl unzip git \
   && apt-get install -y software-properties-common \
   && add-apt-repository ppa:webupd8team/java \
   && apt-get update -y \
@@ -97,4 +97,23 @@ RUN set -ex \
   && make \
   && make install
 
-ENV PATH "/usr/local/bin/php/bin:${PATH}" 
+ENV PATH "/usr/local/bin/php/bin:${PATH}"
+
+
+#--------------------------------#
+#                                #
+#          I2B2 code             #
+#                                #
+#--------------------------------#
+RUN set -ex \
+  && mkdir -p /usr/local/bin/i2b2
+
+WORKDIR /usr/local/bin/i2b2
+
+RUN set -ex \
+  && git clone https://github.com/i2b2/i2b2-core-server \
+  && git clone https://github.com/i2b2/i2b2-webclient \
+  && git clone https://github.com/i2b2/i2b2-data \
+  && git clone https://github.com/i2b2/i2b2-workbench 
+
+  
