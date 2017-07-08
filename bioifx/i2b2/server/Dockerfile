@@ -10,7 +10,7 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 RUN set -ex \
   && apt-get update -y \
   && apt-get install -y build-essential libxml2-dev libcurl4-openssl-dev curl unzip git \
-  && apt-get install -y software-properties-common \
+  && apt-get install -y software-properties-common vim \
   && add-apt-repository ppa:webupd8team/java \
   && apt-get update -y \
   && echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections \
