@@ -121,4 +121,7 @@ COPY db.Hivedata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/
 COPY db.Imdata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Imdata/db.properties
 COPY db.Metadata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Metadata/db.properties
 COPY db.Pmdata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Pmdata/db.properties
-COPY db.Workdata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
+COPY db.Workdata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.propertie
+
+COPY install_i2b2_cells.bash /usr/local/bin/i2b2/install_i2b2_cells.bash
+
