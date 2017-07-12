@@ -41,7 +41,7 @@ RUN set -ex \
 EXPOSE 8080
 EXPOSE 8009
 
-CMD ["/usr/local/bin/wildfly/wildfly-10.0.0.Final/bin/standalone.sh", "-b", "0.0.0.0"]
+# CMD ["/usr/local/bin/wildfly/wildfly-10.0.0.Final/bin/standalone.sh", "-b", "0.0.0.0"]
 
 #--------------------------------#
 #                                #
@@ -75,6 +75,15 @@ WORKDIR /usr/local/bin/axis2
 RUN set -ex \
   && curl -O http://archive.apache.org/dist/axis/axis2/java/core/${AXIS_VERSION}/axis2-${AXIS_VERSION}-war.zip \
   && unzip axis2-${AXIS_VERSION}-war.zip
+
+WORKDIR ${JBOSS_HOME}/standalone/deployments
+
+RUN set -ex \
+  && mkdir -p i2b2.war \
+  && touch i2b2.war.dodeploy \
+  && cp /usr/local/bin/axis2/axis2.war ./axis2.zip \
+  && unzip -d ./i2b2.war ./axis2.zip \
+  && rm ./axis2.zip
 
 ENV PATH "${JAVA_HOME}/bin:${JBOSS_HOME}/bin:${ANT_HOME}/bin:$PATH"
 
@@ -124,4 +133,17 @@ COPY db.Pmdata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/Re
 COPY db.Workdata.properties /usr/local/bin/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
 
 COPY install_i2b2_cells.bash /usr/local/bin/i2b2/install_i2b2_cells.bash
+
+
+#---------------------------------#
+#                                 #
+#  I2B2-Common-Server Install     #
+#                                 #
+#---------------------------------#
+WORKDIR /usr/local/bin/i2b2/i2b2-core-server/edu.harvard.i2b2.server-common
+
+COPY i2b2-server-common.build.properties build.properties
+
+RUN set -ex \
+  && ant clean dist deploy jboss_pre_deployment_setup
 
