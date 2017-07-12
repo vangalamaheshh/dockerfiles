@@ -41,7 +41,6 @@ RUN set -ex \
 EXPOSE 8080
 EXPOSE 8009
 
-# CMD ["/usr/local/bin/wildfly/wildfly-10.0.0.Final/bin/standalone.sh", "-b", "0.0.0.0"]
 
 #--------------------------------#
 #                                #
@@ -147,3 +146,8 @@ COPY i2b2-server-common.build.properties build.properties
 RUN set -ex \
   && ant clean dist deploy jboss_pre_deployment_setup
 
+
+
+
+# Finally run the processes needed to keep the container on
+CMD ["/usr/local/bin/wildfly/wildfly-10.0.0.Final/bin/standalone.sh", "-b", "0.0.0.0"]
