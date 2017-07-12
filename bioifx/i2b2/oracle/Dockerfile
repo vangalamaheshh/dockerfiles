@@ -9,6 +9,10 @@ WORKDIR /usr/local/bin/sql
  
 COPY create_users.sql /usr/local/bin/sql/create_users.sql
 
-RUN set -ex \
-  && sqlplus system/${ORACLE_PWD}@//localhost:1521/XE @ create_users.sql
+COPY run_sql.bash /usr/local/bin/sql/run_sql.bash
+
+EXPOSE 1521
+EXPOSE 8080
+
+CMD ["/bin/bash", "/usr/local/bin/sql/run_sql.bash"]
 

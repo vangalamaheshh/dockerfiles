@@ -26,7 +26,7 @@ grant all privileges to i2b2metadata identified by demouser;
 -- PM Data User
 create user i2b2pm identified by demouser;
 grant connect to i2b2pm;
-grant all privileges to i2b2pmdata identified by demouser;
+grant all privileges to i2b2pm identified by demouser;
 
 -- Work Data User
 create user i2b2workdata identified by demouser;
