@@ -3,12 +3,18 @@ FROM jboss/wildfly:10.0.0.Final
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 #------------------------------------------#
+#             PREREQUISITES                #
+#------------------------------------------#
+USER root
+
+RUN set -ex \
+  && yum install -y git
+
+#------------------------------------------#
 #                                          #
 #    Alter JBOSS ports to 9090 and 9009    #
 #                                          #
 #------------------------------------------#
-USER root
-
 RUN set -ex \
   && sed -i "s|\(http\.port\):8080|\1:9090|g" /opt/jboss/wildfly/standalone/configuration/standalone.xml \
   && sed -i "s|\(ajp\.port\):8009|\1:9009|g" /opt/jboss/wildfly/standalone/configuration/standalone.xml
@@ -55,12 +61,43 @@ RUN set -ex \
   && touch ${JBOSS_HOME}/standalone/deployments/i2b2.war.dodeploy
 
 
+#-------------------------------------------#
+#                                           #
+#          I2B2 Data Installation           #
+#                                           #
+#-------------------------------------------#
+RUN set -ex \
+  && mkdir -p /opt/jboss/i2b2
+
+WORKDIR /opt/jboss/i2b2
+
+RUN set -ex \
+  && git clone https://github.com/i2b2/i2b2-core-server \
+  && git clone https://github.com/i2b2/i2b2-webclient \
+  && git clone https://github.com/i2b2/i2b2-data \
+  && git clone https://github.com/i2b2/i2b2-workbench
+
+COPY db.Crcdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Crcdata/db.properties
+COPY db.Hivedata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Hivedata/db.properties
+COPY db.Imdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Imdata/db.properties
+COPY db.Metadata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Metadata/db.properties
+COPY db.Pmdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Pmdata/db.properties
+COPY db.Workdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
+
+COPY install_i2b2_cells.bash /opt/jboss/i2b2/install_i2b2_cells.bash
+
+
+
 #---------------       EXPORT PATH     --------------#
 ENV PATH "${JAVA_HOME}/bin:${JBOSS_HOME}/bin:${ANT_HOME}/bin:$PATH"
 
 #---------------      EXPOSE PORTS     --------------#
 EXPOSE 9090
 EXPOSE 9009
+
+#----       RUN DATA INSTALLATION SCRIPT     --------#
+CMD ["/bin/bash", "/opt/jboss/i2b2/install_i2b2_cells.bash"]
+
 
 
 
