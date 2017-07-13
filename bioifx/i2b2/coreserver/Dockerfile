@@ -85,7 +85,7 @@ COPY db.Pmdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Releas
 COPY db.Workdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
 
 COPY install_i2b2_cells.bash /opt/jboss/i2b2/install_i2b2_cells.bash
-
+COPY cmd.bash /opt/jboss/cmd.bash
 
 
 #---------------       EXPORT PATH     --------------#
@@ -96,7 +96,7 @@ EXPOSE 9090
 EXPOSE 9009
 
 #----       RUN DATA INSTALLATION SCRIPT     --------#
-CMD ["/bin/bash", "/opt/jboss/i2b2/install_i2b2_cells.bash"]
+CMD ["/bin/bash", "/opt/jboss/cmd.bash"]
 
 
 
