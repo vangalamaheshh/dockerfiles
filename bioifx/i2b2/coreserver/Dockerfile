@@ -84,8 +84,17 @@ COPY db.Metadata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Rele
 COPY db.Pmdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Pmdata/db.properties
 COPY db.Workdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
 
-COPY install_i2b2_cells.bash /opt/jboss/i2b2/install_i2b2_cells.bash
-COPY cmd.bash /opt/jboss/cmd.bash
+
+#--------------------------------------------#
+#                                            #
+#        I2B2 SERVER COMMON INSTALL          #
+#              & PM Cell Install             #
+#--------------------------------------------#
+RUN set -ex \
+  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.server-common/build.properties \
+  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/build.properties
+
+COPY pm-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/etc/jboss/pm-ds.xml
 
 
 #---------------       EXPORT PATH     --------------#
@@ -95,8 +104,18 @@ ENV PATH "${JAVA_HOME}/bin:${JBOSS_HOME}/bin:${ANT_HOME}/bin:$PATH"
 EXPOSE 9090
 EXPOSE 9009
 
-#----       RUN DATA INSTALLATION SCRIPT     --------#
+
+#---------------      COPY SCRIPTS     --------------#
+COPY install_i2b2_cells.bash /opt/jboss/i2b2/install_i2b2_cells.bash
+COPY cmd.bash /opt/jboss/cmd.bash
+
+
+
+#----       RUN DATA INSTALLATION SCRIPT      --------#
+#----       followed by PM Cell install.      --------#
 CMD ["/bin/bash", "/opt/jboss/cmd.bash"]
+
+
 
 
 
