@@ -5,7 +5,10 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 WORKDIR /usr/local/bin/mamba
 
 RUN set -ex \
+  && apt-get install -y update \
+  && apt-get install -y upgrade \
   && apt-get install -y libjemalloc-dev \
+  && apt-get install -y libxrender1 \
   && git clone https://github.com/dst-umms/MAMBA.git
 
 RUN set -ex \
