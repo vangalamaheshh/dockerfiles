@@ -7,7 +7,7 @@ WORKDIR /var/www/html
 RUN set -ex \
   && apt-get update -y \
   && apt-get upgrade -y \
-  && apt-get install -y git \
+  && apt-get install -y git php5-curl \
   && git clone http://github.com/i2b2/i2b2-webclient.git admin
 
 COPY i2b2_config_data.js /var/www/html/admin/i2b2_config_data.js
