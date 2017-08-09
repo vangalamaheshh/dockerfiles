@@ -12,6 +12,7 @@ RUN set -ex \
 
 COPY i2b2_config_data.js /var/www/html/admin/i2b2_config_data.js
 COPY i2b2_loader.js /var/www/html/admin/js-i2b2/i2b2_loader.js
+COPY admin_index.php /var/www/html/admin/index.php
 
 EXPOSE 80
 
