@@ -73,9 +73,7 @@ WORKDIR /opt/jboss/i2b2
 
 RUN set -ex \
   && git clone https://github.com/i2b2/i2b2-core-server \
-  && git clone https://github.com/i2b2/i2b2-webclient \
-  && git clone https://github.com/i2b2/i2b2-data \
-  && git clone https://github.com/i2b2/i2b2-workbench
+  && git clone https://github.com/i2b2/i2b2-data
 
 COPY db.Crcdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Crcdata/db.properties
 COPY db.Hivedata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Hivedata/db.properties
@@ -87,14 +85,18 @@ COPY db.Workdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Rele
 
 #--------------------------------------------#
 #                                            #
-#        I2B2 SERVER COMMON INSTALL          #
-#              & PM Cell Install             #
+#        I2B2 SERVER COMMON, PM and          #
+#              Ontology Cell Install         #
 #--------------------------------------------#
 RUN set -ex \
   && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.server-common/build.properties \
-  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/build.properties
-
+  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/build.properties \
+  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/build.properties \
+  && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/spring/ontology_application_directory.properties \
+  
 COPY pm-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/etc/jboss/pm-ds.xml
+COPY ontology.properties  /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/spring/ontology.properties
+COPY ont-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/jboss/ont-ds.xml
 
 
 #---------------       EXPORT PATH     --------------#
