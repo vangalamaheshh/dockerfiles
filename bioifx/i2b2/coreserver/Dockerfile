@@ -46,7 +46,7 @@ ENV ANT_HOME "/usr/local/bin/apache-ant/${APACHE_ANT_VERSION}"
 #              Apache Axis2 1.7.1           #
 #                                           #
 #-------------------------------------------#
-USER jboss
+#USER jboss
 
 WORKDIR /opt/jboss
 
