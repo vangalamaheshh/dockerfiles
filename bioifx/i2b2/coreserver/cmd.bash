@@ -7,6 +7,8 @@ cd /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm
 ant -f master_build.xml clean build-all deploy
 cd /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology
 ant -f master_build.xml clean build-all deploy
+cd /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc
+ant -f master_build.xml clean build-all deploy
 ${JBOSS_HOME}/bin/standalone.sh -b 0.0.0.0
 
 wait
