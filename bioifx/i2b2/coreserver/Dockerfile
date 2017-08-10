@@ -85,8 +85,8 @@ COPY db.Workdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Rele
 
 #--------------------------------------------#
 #                                            #
-#        I2B2 SERVER COMMON, PM,             #
-#         ONTOLOGY, CRC CELLS INSTALLATION   #
+#        I2B2 SERVER COMMON, PM, ONTOLOGY    #
+#         CRC, WORKPLACE, FR & IM cells      #
 #--------------------------------------------#
 RUN set -ex \
   && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.server-common/build.properties \
@@ -94,7 +94,14 @@ RUN set -ex \
   && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/build.properties \
   && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/spring/ontology_application_directory.properties \
   && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/build.properties \
-  && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/crc_application_directory.properties
+  && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/crc_application_directory.properties \
+  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.workplace/build.properties \
+  && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.workplace/etc/spring/workplace_application_directory.properties \
+  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.fr/build.properties \
+  && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.fr/etc/spring/fr_application_directory.properties \
+  && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/build.properties \
+  && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/etc/spring/im_application_directory.properties
+
 
 COPY pm-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/etc/jboss/pm-ds.xml
 COPY ontology.properties  /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/spring/ontology.properties
@@ -103,6 +110,11 @@ COPY crc.loader.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc
 COPY CRCLoaderApplicationContext.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/CRCLoaderApplicationContext.xml
 COPY crc.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/crc.properties
 COPY crc-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/jboss/crc-ds.xml
+COPY config/workplace/workplace.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.workplace/etc/spring/workplace.properties
+COPY config/workplace/work-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.workplace/etc/jboss/work-ds.xml
+COPY config/file-repo/file-repo.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.fr/etc/spring/edu.harvard.i2b2.fr.properties
+COPY config/id-mgmt/id-mgmt.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/etc/spring/im.properties
+COPY config/id-mgmt/im-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/etc/jboss/im-ds.xml
 
 #---------------       EXPORT PATH     --------------#
 ENV PATH "${JAVA_HOME}/bin:${JBOSS_HOME}/bin:${ANT_HOME}/bin:$PATH"
@@ -119,7 +131,7 @@ COPY cmd.bash /opt/jboss/cmd.bash
 
 
 #----       RUN DATA INSTALLATION SCRIPT      --------#
-#----       followed by PM Cell install.      --------#
+#----       followed by Cells installation.   --------#
 CMD ["/bin/bash", "/opt/jboss/cmd.bash"]
 
 
