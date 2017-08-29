@@ -6,7 +6,7 @@
 	lstDomains: [
 		{ domain: "i2b2demo",
 		  name: "UMassDemo",
-		  urlCellPM: "http://CORE_SERVER:9090/i2b2/services/PMService/",
+		  urlCellPM: "http://core:9090/i2b2/services/PMService/",
 		  allowAnalysis: true,
 		  //installer: "/webclient/plugin_installer/",
 		  debug: false
