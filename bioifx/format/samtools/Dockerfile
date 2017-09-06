@@ -1,8 +1,7 @@
-FROM mvangala/base-ubuntu:latest 
+FROM mvangala/base-conda:latest 
 
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
-  && apt-get update -y \
-  && apt-get install -y samtools
-
+  && conda install -c bioconda htslib \
+  && conda install -c bioconda samtools

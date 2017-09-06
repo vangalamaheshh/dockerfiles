@@ -1,4 +1,4 @@
-FROM mvangala/bioifx_miniconda3:0.0.1
+FROM mvangala/base-conda:latest
 
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
