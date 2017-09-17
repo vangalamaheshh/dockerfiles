@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -euo pipefail
 # ENV variables required
 CLOUDSDK_CORE_PROJECT="synergist-170903"
 BQ_GENOMICS_DATASET="genomics_api"
@@ -13,23 +13,17 @@ for dataset_id in $(gcloud alpha genomics datasets list | grep ${project_id} | g
 done
 
 # create dataset
-dataset_cmd="gcloud alpha genomics datasets create --name=${project_id} 2>&1 | grep -oP \"id:\s+(\d+)\" | sed -e \"s/id:\s*//g\""
-echo "Dataset command: ${dataset_cmd}" >&2 
-dataset_id=$("${dataset_cmd}")
+dataset_id=$(gcloud alpha genomics datasets create --name=${project_id} 2>&1 | grep -oP "id:\s+(\d+)" | sed -e "s/id:\s*//g")
 
 # create variantset
-variantset_cmd="gcloud alpha genomics variantsets create --dataset-id=${dataset_id} --name=${project_id} 2>&1 | grep -oP \"id: \d+\" | head -1 | sed -e \"s/id:\s*//g\""
-echo "Variantset command: ${variantset_cmd}" >&2
-variantset_id=$("${variantset_cmd}")
+variantset_id=$(gcloud alpha genomics variantsets create --dataset-id=${dataset_id} --name=${project_id} 2>&1 | grep -oP "id: \d+" | head -1 | sed -e "s/id:\s*//g")
 
 # import variants
 # first, make sure you have comma separated vcf file list
 vcf_file_list=$(echo "${vcf_file_list}" | tr "\n" "," | tr " " "," | sed -e "s/,$//")
 echo "vcf_file_list: ${vcf_file_list}" >&2
 
-variant_cmd="gcloud alpha genomics variants import --variantset-id=${variantset_id} --source-uris=${vcf_file_list} 2>&1 | grep -oP \"name:\s+(.+)\" | sed -e \"s/name:\s*//g\""
-echo "variants import command: ${variant_cmd}" >&2
-var_op_id=$("${variant_cmd}")
+var_op_id=$(gcloud alpha genomics variants import --variantset-id=${variantset_id} --source-uris=${vcf_file_list} 2>&1 | grep -oP "name:\s+(.+)" | sed -e "s/name:\s*//g")
 
 # create bq dataset if not exists
 bq_exists=$(bq ls | grep "${BQ_GENOMICS_DATASET}")
