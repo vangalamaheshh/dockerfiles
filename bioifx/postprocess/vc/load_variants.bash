@@ -15,12 +15,12 @@ done
 # create dataset
 dataset_cmd="gcloud alpha genomics datasets create --name=${project_id} 2>&1 | grep -oP \"id:\s+(\d+)\" | sed -e \"s/id:\s*//g\""
 echo "Dataset command: ${dataset_cmd}" >&2 
-dataset_id=$(${dataset_cmd})
+dataset_id=$("${dataset_cmd}")
 
 # create variantset
 variantset_cmd="gcloud alpha genomics variantsets create --dataset-id=${dataset_id} --name=${project_id} 2>&1 | grep -oP \"id: \d+\" | head -1 | sed -e \"s/id:\s*//g\""
 echo "Variantset command: ${variantset_cmd}" >&2
-variantset_id=$(${variantset_cmd})
+variantset_id=$("${variantset_cmd}")
 
 # import variants
 # first, make sure you have comma separated vcf file list
@@ -29,7 +29,7 @@ echo "vcf_file_list: ${vcf_file_list}" >&2
 
 variant_cmd="gcloud alpha genomics variants import --variantset-id=${variantset_id} --source-uris=${vcf_file_list} 2>&1 | grep -oP \"name:\s+(.+)\" | sed -e \"s/name:\s*//g\""
 echo "variants import command: ${variant_cmd}" >&2
-var_op_id=$(${variant_cmd})
+var_op_id=$("${variant_cmd}")
 
 # create bq dataset if not exists
 bq_exists=$(bq ls | grep "${BQ_GENOMICS_DATASET}")
