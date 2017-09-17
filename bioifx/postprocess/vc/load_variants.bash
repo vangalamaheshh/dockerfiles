@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -o pipefail
 # ENV variables required
 CLOUDSDK_CORE_PROJECT="synergist-170903"
 BQ_GENOMICS_DATASET="genomics_api"
