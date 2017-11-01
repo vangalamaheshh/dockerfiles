@@ -1,7 +1,7 @@
 #!/bin/bash
 set -o pipefail
 # ENV variables required
-CLOUDSDK_CORE_PROJECT="synergist-170903"
+export CLOUDSDK_CORE_PROJECT="synergist-170903"
 BQ_GENOMICS_DATASET="genomics_api"
 
 # activate account
@@ -13,10 +13,10 @@ for dataset_id in $(gcloud alpha genomics datasets list | grep ${project_id} | c
 done
 
 # create dataset
-dataset_id=$(gcloud alpha genomics datasets create --name=${project_id} 2>&1 | grep -o "id:\s*\d*" | sed -e "s/id: //g")
+dataset_id=$(gcloud alpha genomics datasets create --name=${project_id} 2>&1 | grep -oP "id:\s*\d*" | sed -e "s/id: //g")
 
 # create variantset
-variantset_id=$(gcloud alpha genomics variantsets create --dataset-id=${dataset_id} --name=${project_id} 2>&1 | grep -o "id:\s*\d*" | head -1 | sed -e "s/id: //g")
+variantset_id=$(gcloud alpha genomics variantsets create --dataset-id=${dataset_id} --name=${project_id} 2>&1 | grep -oP "id:\s*\d*" | head -1 | sed -e "s/id: //g")
 
 # import variants
 # first, make sure you have comma separated vcf file list
