@@ -43,12 +43,12 @@ if [ ! -z $table_exists ]; then
 fi
 
 # keep checking until variant operation completes
-while [ $(gcloud alpha genomics operations describe "${var_op_id}"  | grep "done:" | sed -e "s/done: *//g") == "false" ]; do 
+while [ $(gcloud alpha genomics operations describe "${var_op_id}"  | grep "done:" | sed -e "s/done: //g") == "false" ]; do 
   sleep 600; #sleep for 10min 
 done
 
 # export variants to bq table
-bq_op_id=$(gcloud alpha genomics variantsets export ${variantset_id} ${table_name} --bigquery-dataset ${BQ_GENOMICS_DATASET} 2>&1 | grep -o "name:" | sed -e "s/name: //g")
+bq_op_id=$(gcloud alpha genomics variantsets export ${variantset_id} ${table_name} --bigquery-dataset ${BQ_GENOMICS_DATASET} 2>&1 | grep "name:" | sed -e "s/name: //g")
 
 # keep checking until bq operation completes
 while [ $(gcloud alpha genomics operations describe "${bq_op_id}"  | grep "done:" | sed -e "s/done: //g") == "false" ]; do
