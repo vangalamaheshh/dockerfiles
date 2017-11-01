@@ -38,7 +38,7 @@ table_name="${project_id}"
 # if table exists - drop it
 table_exists=$(bq ls "${BQ_GENOMICS_DATASET}" | grep "${table_name}" )
 
-if [ ! -z $table_exists ]; then
+if [ ! -z "${table_exists}" ]; then
   bq rm -t -f "${BQ_GENOMICS_DATASET}.${table_name}"
 fi
 
