@@ -20,7 +20,7 @@ variantset_id=$(gcloud alpha genomics variantsets create --dataset-id=${dataset_
 
 # import variants
 # first, make sure you have comma separated vcf file list
-vcf_file_list=$(gsutil ${workspace}/*/*.vcf | tr "\n" "," | tr " " "," | sed -e "s/,$//")
+vcf_file_list=$(gsutil ls ${workspace}/*/*.vcf | tr "\n" "," | tr " " "," | sed -e "s/,$//")
 echo "vcf_file_list: ${vcf_file_list}" >&2
 
 var_op_id=$(gcloud alpha genomics variants import --variantset-id=${variantset_id} --source-uris=${vcf_file_list} 2>&1 | grep "name:" | sed -e "s/name: //g")
