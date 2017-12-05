@@ -2,7 +2,7 @@
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema">
 	<datasource jta="false" jndi-name="java:/IMBootStrapDS"
 		pool-name="IMBootStrapDS" enabled="true" use-ccm="false">
-		<connection-url>jdbc:oracle:thin:@ORACLE:1521:XE</connection-url>
+		<connection-url>jdbc:oracle:thin:@oracle:1521:XE</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>
 		<driver>ojdbc6.jar</driver>
 		<security>
@@ -19,7 +19,7 @@
 	</datasource>
 	<datasource jta="false" jndi-name="java:/IMDemoDS"
 		pool-name="IMDemoDS" enabled="true" use-ccm="false">
-		<connection-url>jdbc:oracle:thin:@ORACLE:1521:XE</connection-url>
+		<connection-url>jdbc:oracle:thin:@oracle:1521:XE</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>
 		<driver>ojdbc6.jar</driver>
 		<security>
