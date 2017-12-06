@@ -9,7 +9,7 @@
 		  urlCellPM: "http://core:9090/i2b2/services/PMService/",
 		  allowAnalysis: true,
 		  //installer: "/webclient/plugin_installer/",
-		  debug: false
+		  debug: true
 		}
 	]
 	//-------------------------------------------------------------------------------------------
