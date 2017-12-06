@@ -126,7 +126,6 @@ EXPOSE 9009
 
 #---------------      COPY SCRIPTS     --------------#
 COPY install_i2b2_cells.bash /opt/jboss/i2b2/install_i2b2_cells.bash
-RUN echo helllooooo
 COPY cmd.bash /opt/jboss/cmd.bash
 
 
