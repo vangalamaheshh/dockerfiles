@@ -10,7 +10,7 @@
 		  allowAnalysis: true,
       adminOnly: true,
 		  //installer: "/webclient/plugin_installer/",
-		  debug: false
+		  debug: true
 		}
 	]
 	//-------------------------------------------------------------------------------------------
