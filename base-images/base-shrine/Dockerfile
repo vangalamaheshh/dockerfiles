@@ -60,24 +60,17 @@ RUN set -ex \
 #------------------------------------------------------------#
 COPY conf/mysql-context.xml /opt/shrine/tomcat/conf/context.xml 
 COPY conf/tomcat-server.xml /opt/shrine/tomcat/conf/server.xml 
+COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
+RUN set -ex \
+  && mkdir -p /opt/shrine/tomcat/conf/Catalina/localhost
+COPY conf/shrine.xml /opt/shrine/tomcat/conf/Catalina/localhost/shrine.xml
 
 
 #------------------------------------------------------------#
 #                                                            #
-#        DOWNLOAD MYSQL DRIVERS & DEMO DATA                  #
+#                    EXPOSE PORTS                            #
 #                                                            #
 #------------------------------------------------------------#
-ENV SHRINE_DEMO_URL "https://open.med.harvard.edu/svn/shrine-ontology/SHRINE_Demo_Downloads/trunk"
+EXPOSE 8009 8080 8443
 
-RUN set -ex \
-  && mkdir -p /opt/shrine/tomcat/webapps/shrine/WEB-INF/lib \
-  && wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar \
-      -O /opt/shrine/tomcat/webapps/shrine/WEB-INF/lib/mysql-connector-java-5.1.38-bin.jar
-
-RUN set -ex \
-  && mkdir -p /opt/shrine/demo-data \
-  && cd /opt/shrine/demo-data \
-  && wget ${SHRINE_DEMO_URL}/AdapterMappings_i2b2_DemoData.csv -O AdapterMappings.csv \
-  && wget ${SHRINE_DEMO_URL}/SCHEMES.sql \
-  && wget ${SHRINE_DEMO_URL}/ShrineDemo.sql
-
+CMD ["/opt/shrine/tomcat/bin/catalina.sh", "run"]
