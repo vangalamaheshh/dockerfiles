@@ -2,12 +2,9 @@ FROM centos:7
 
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
-ARG SHRINE_VERSION=1.19.2
-ARG SHRINE_NEXUS_URL="https://repo.open.med.harvard.edu/nexus/content/groups/public/net/shrine"
-
 RUN set -ex \
   && yum update -y \
-  && yum install -y wget postfix ntp
+  && yum install -y unzip wget postfix ntp
 
 #----------------------------------------------------------#
 #                                                          #
@@ -17,7 +14,7 @@ RUN set -ex \
 RUN set -ex \
   && mkdir /opt/java \
   && cd /opt/java \
-  && wget --header "Cookie: oraclelicense=accept-securebackup-cookie" \\
+  && wget --header "Cookie: oraclelicense=accept-securebackup-cookie" \
       http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-x64.tar.gz \
   && tar -zxvf jdk-8u152-linux-x64.tar.gz
 
@@ -42,6 +39,9 @@ RUN set -ex \
 #            SHRINE WAR FILES & WEB CLIENT                  #
 #                                                           #
 #-----------------------------------------------------------#
+ENV SHRINE_VERSION 1.22.8
+ENV SHRINE_NEXUS_URL "https://repo.open.med.harvard.edu/nexus/content/groups/public/net/shrine"
+
 RUN set -ex \
   && cd /opt/shrine/tomcat/webapps \
   && wget ${SHRINE_NEXUS_URL}/shrine-war/${SHRINE_VERSION}/shrine-war-${SHRINE_VERSION}.war -O shrine.war \
@@ -53,5 +53,30 @@ RUN set -ex \
   && unzip shrine-webclient.zip
 
 
-# Expose ports
+#------------------------------------------------------------#
+#                                                            #
+#                COPY CONFIG FILES                           #
+#                                                            #
+#------------------------------------------------------------#
+COPY conf/mysql-context.xml /opt/shrine/tomcat/conf/context.xml 
+COPY conf/tomcat-server.xml /opt/shrine/tomcat/conf/server.xml 
+
+
+#------------------------------------------------------------#
+#                                                            #
+#        DOWNLOAD MYSQL DRIVERS & DEMO DATA                  #
+#                                                            #
+#------------------------------------------------------------#
+RUN set -ex \
+  && mkdir -p /opt/shrine/tomcat/webapps/shrine/WEB-INF/lib \
+  && wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar \
+      -O /opt/shrine/tomcat/webapps/shrine/WEB-INF/lib/mysql-connector-java-5.1.38-bin.jar
+
+RUN set -ex \
+  && mkdir -p /opt/shrine/demo-data \
+  && cd /opt/shrine/demo-data \
+  && SHRINE_DEMO_DATA="https://open.med.harvard.edu/svn/shrine-ontology/SHRINE_Demo_Downloads/trunk" \
+  && wget ${SHRINE_DEMO_DATA}/AdapterMappings_i2b2_DemoData.csv -O AdapterMappings.csv \
+  && wget ${SHRINE_DEMO_DATA/SCHEMES.sql \
+  && wget ${SHRINE_DEMO_DATA}/ShrineDemo.sql
 
