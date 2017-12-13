@@ -67,6 +67,8 @@ COPY conf/tomcat-server.xml /opt/shrine/tomcat/conf/server.xml
 #        DOWNLOAD MYSQL DRIVERS & DEMO DATA                  #
 #                                                            #
 #------------------------------------------------------------#
+ENV SHRINE_DEMO_URL "https://open.med.harvard.edu/svn/shrine-ontology/SHRINE_Demo_Downloads/trunk"
+
 RUN set -ex \
   && mkdir -p /opt/shrine/tomcat/webapps/shrine/WEB-INF/lib \
   && wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar \
@@ -75,8 +77,7 @@ RUN set -ex \
 RUN set -ex \
   && mkdir -p /opt/shrine/demo-data \
   && cd /opt/shrine/demo-data \
-  && SHRINE_DEMO_DATA="https://open.med.harvard.edu/svn/shrine-ontology/SHRINE_Demo_Downloads/trunk" \
-  && wget ${SHRINE_DEMO_DATA}/AdapterMappings_i2b2_DemoData.csv -O AdapterMappings.csv \
-  && wget ${SHRINE_DEMO_DATA/SCHEMES.sql \
-  && wget ${SHRINE_DEMO_DATA}/ShrineDemo.sql
+  && wget ${SHRINE_DEMO_URL}/AdapterMappings_i2b2_DemoData.csv -O AdapterMappings.csv \
+  && wget ${SHRINE_DEMO_URL}/SCHEMES.sql \
+  && wget ${SHRINE_DEMO_URL}/ShrineDemo.sql
 
