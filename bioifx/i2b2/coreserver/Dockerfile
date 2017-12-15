@@ -102,7 +102,7 @@ RUN set -ex \
   && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/build.properties \
   && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/etc/spring/im_application_directory.properties
 
-
+RUN echo hello
 COPY pm-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/etc/jboss/pm-ds.xml
 COPY ontology.properties  /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/spring/ontology.properties
 COPY ont-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/jboss/ont-ds.xml

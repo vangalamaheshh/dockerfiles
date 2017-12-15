@@ -69,12 +69,14 @@ RUN set -ex \
 #                COPY CONFIG FILES                           #
 #                                                            #
 #------------------------------------------------------------#
+RUN echo fromhere:
 COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
 RUN set -ex \
   && mkdir -p /opt/shrine/tomcat/conf/Catalina/localhost
 COPY conf/shrine.xml /opt/shrine/tomcat/conf/Catalina/localhost/shrine.xml
 COPY conf/tomcat-server.xml /opt/shrine/tomcat/conf/server.xml 
 COPY conf/mysql-context.xml /opt/shrine/tomcat/conf/context.xml 
+COPY conf/i2b2_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/i2b2_config_data.js
 
 #------------------------------------------------------------#
 #                                                            #
@@ -100,6 +102,6 @@ RUN set -ex \
 #                    EXPOSE PORTS                            #
 #                                                            #
 #------------------------------------------------------------#
-EXPOSE 8009 8080 8443
+EXPOSE 8009 8080 6443
 
 CMD ["/opt/shrine/tomcat/bin/catalina.sh", "run"]
