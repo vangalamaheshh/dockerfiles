@@ -58,18 +58,17 @@ RUN set -ex \
 #                 GENERATE KEYSTORE                          #
 #                                                            #
 #------------------------------------------------------------#
+COPY conf/keytool.sh ${JAVA_HOME}/bin/docker-keytool.sh
 RUN set -ex \
-  && keytool -genkeypair -keysize 2048 -alias localhost -dname \
-      "CN=localhost, OU=shrine-wc, O=SHRINENetwork, L=Worcester, S=MA, C=US" \
-      -keyalg RSA -keypass sslpass -storepass sslpass \
-      -keystore /opt/shrine/shrine.keystore -validity 7300
+  && cd ${JAVA_HOME}/bin \
+  && bash docker-keytool.sh
 
 #------------------------------------------------------------#
 #                                                            #
 #                COPY CONFIG FILES                           #
 #                                                            #
 #------------------------------------------------------------#
-RUN echo fromhere:
+RUN echo "Here<<"
 COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
 RUN set -ex \
   && mkdir -p /opt/shrine/tomcat/conf/Catalina/localhost
