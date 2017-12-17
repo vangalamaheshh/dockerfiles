@@ -96,6 +96,12 @@ RUN set -ex \
   && wget ${SHRINE_DEMO_URL}/SCHEMES.sql \
   && wget ${SHRINE_DEMO_URL}/ShrineDemo.sql
 
+
+# QEP?
+COPY conf/steward.conf /opt/shrine/tomcat/lib/steward.conf
+COPY conf/steward.xml /opt/shrine/tomcat/conf/Catalina/localhost/steward.xml
+COPY conf/cell_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/
+
 #------------------------------------------------------------#
 #                                                            #
 #                    EXPOSE PORTS                            #

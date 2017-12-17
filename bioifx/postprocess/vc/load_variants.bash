@@ -2,7 +2,7 @@
 set -o pipefail
 # ENV variables required
 export CLOUDSDK_CORE_PROJECT="synergist-170903"
-BQ_GENOMICS_DATASET="genomics_api"
+BQ_GENOMICS_DATASET="${bq_dataset_name_gx}"
 
 # activate account
 gcloud auth activate-service-account --key-file=${gmx_file} 
