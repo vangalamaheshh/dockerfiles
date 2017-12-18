@@ -3,7 +3,7 @@
 
     <Resource name="jdbc/shrineDB" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
-               username="root" password="MYSQL_PWD" driverClassName="com.mysql.jdbc.Driver"
+               username="shrine" password="demouser" driverClassName="com.mysql.jdbc.Driver"
                url="jdbc:mysql://mysql:3306/shrine_query_history"
                testOnBorrow="true" validationQuery="SELECT 1"/>
 </Context>

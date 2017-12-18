@@ -4,7 +4,7 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
   && yum update -y \
-  && yum install -y unzip wget postfix ntp
+  && yum install -y vim less unzip wget postfix ntp
 
 #----------------------------------------------------------#
 #                                                          #
@@ -44,12 +44,16 @@ ENV SHRINE_NEXUS_URL "https://repo.open.med.harvard.edu/nexus/content/groups/pub
 
 RUN set -ex \
   && cd /opt/shrine/tomcat/webapps \
-  && wget ${SHRINE_NEXUS_URL}/shrine-war/${SHRINE_VERSION}/shrine-war-${SHRINE_VERSION}.war -O shrine.war \
-  && wget ${SHRINE_NEXUS_URL}/steward/${SHRINE_VERSION}/steward-${SHRINE_VERSION}.war -O steward.war \
-  && wget ${SHRINE_NEXUS_URL}/shrine-proxy/${SHRINE_VERSION}/shrine-proxy-${SHRINE_VERSION}.war -O shrine-proxy.war \
-  && wget ${SHRINE_NEXUS_URL}/shrine-webclient/${SHRINE_VERSION}/shrine-webclient-${SHRINE_VERSION}-dist.zip -O shrine-webclient.zip \
-	&& wget ${SHRINE_NEXUS_URL}/dashboard-war/${SHRINE_VERSION}/dashboard-war-${SHRINE_VERSION}.war -O shrine-dashboard.war \
-  && wget ${SHRINE_NEXUS_URL}/meta-war/${SHRINE_VERSION}/meta-war-${SHRINE_VERSION}.war -O shrine-meta.war \
+  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/shrine-war/${SHRINE_VERSION}/shrine-war-${SHRINE_VERSION}.war -O shrine.war \
+  && mkdir shrine \
+  && cd shrine \
+  && jar xvf ../shrine.war \
+  && cd ../ \
+  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/steward/${SHRINE_VERSION}/steward-${SHRINE_VERSION}.war -O steward.war \
+  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/shrine-proxy/${SHRINE_VERSION}/shrine-proxy-${SHRINE_VERSION}.war -O shrine-proxy.war \
+  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/shrine-webclient/${SHRINE_VERSION}/shrine-webclient-${SHRINE_VERSION}-dist.zip -O shrine-webclient.zip \
+	&& wget --no-check-certificate ${SHRINE_NEXUS_URL}/dashboard-war/${SHRINE_VERSION}/dashboard-war-${SHRINE_VERSION}.war -O shrine-dashboard.war \
+  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/meta-war/${SHRINE_VERSION}/meta-war-${SHRINE_VERSION}.war -O shrine-meta.war \
   && unzip shrine-webclient.zip
 
 
@@ -68,7 +72,6 @@ RUN set -ex \
 #                COPY CONFIG FILES                           #
 #                                                            #
 #------------------------------------------------------------#
-RUN echo "Here<<"
 COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
 RUN set -ex \
   && mkdir -p /opt/shrine/tomcat/conf/Catalina/localhost
@@ -76,6 +79,7 @@ COPY conf/shrine.xml /opt/shrine/tomcat/conf/Catalina/localhost/shrine.xml
 COPY conf/tomcat-server.xml /opt/shrine/tomcat/conf/server.xml 
 COPY conf/mysql-context.xml /opt/shrine/tomcat/conf/context.xml 
 COPY conf/i2b2_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/i2b2_config_data.js
+COPY conf/cell_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/cell_config_data.js
 
 #------------------------------------------------------------#
 #                                                            #
@@ -98,15 +102,17 @@ RUN set -ex \
 
 
 # QEP?
-COPY conf/steward.conf /opt/shrine/tomcat/lib/steward.conf
-COPY conf/steward.xml /opt/shrine/tomcat/conf/Catalina/localhost/steward.xml
-COPY conf/cell_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/
+#COPY conf/steward.conf /opt/shrine/tomcat/lib/steward.conf
+#COPY conf/steward.xml /opt/shrine/tomcat/conf/Catalina/localhost/steward.xml
+#COPY conf/cell_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/
 
 #------------------------------------------------------------#
 #                                                            #
 #                    EXPOSE PORTS                            #
 #                                                            #
 #------------------------------------------------------------#
-EXPOSE 8009 8080 6443
+#EXPOSE 8009 
+#EXPOSE 8080 
+EXPOSE 6443
 
 CMD ["/opt/shrine/tomcat/bin/catalina.sh", "run"]
