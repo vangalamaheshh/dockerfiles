@@ -4,7 +4,7 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
   && yum update -y \
-  && yum install -y vim less unzip wget postfix ntp
+  && yum install -y vim less unzip wget postfix ntp openssl
 
 #----------------------------------------------------------#
 #                                                          #
@@ -64,11 +64,15 @@ RUN set -ex \
 #                 GENERATE KEYSTORE                          #
 #                                                            #
 #------------------------------------------------------------#
-RUN echo "REFRESHH"
-COPY conf/keytool.sh ${JAVA_HOME}/bin/docker-keytool.sh
+#COPY conf/keytool.sh ${JAVA_HOME}/bin/docker-keytool.sh
+#RUN set -ex \
+#  && cd ${JAVA_HOME}/bin \
+#  && bash docker-keytool.sh
+COPY conf/generate-qa-certs.sh /opt/shrine/keytool.sh
 RUN set -ex \
-  && cd ${JAVA_HOME}/bin \
-  && bash docker-keytool.sh
+  && cd /opt/shrine \
+  && bash keytool.sh \
+  && cp localhost/localhost.catalyst.jks shrine.keystore
 
 #------------------------------------------------------------#
 #                                                            #
