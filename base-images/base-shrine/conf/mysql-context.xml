@@ -3,31 +3,31 @@
  
 <Context>
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
-    <Resource name="jdbc/problemDB" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/problemDB" global="jdbc/problemDB" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="shrine" password="demouser" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://mysql:3306/shrine_query_history"
               testOnBorrow="true" validationQuery="SELECT 1"/>
  
-    <Resource name="jdbc/shrineDB" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/shrineDB" global="jdbc/shrineDB" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
                username="shrine" password="demouser" driverClassName="com.mysql.jdbc.Driver"
                url="jdbc:mysql://mysql:3306/shrine_query_history"
                testOnBorrow="true" validationQuery="SELECT 1"/>
  
-    <Resource name="jdbc/adapterAuditDB" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/adapterAuditDB" global="jdbc/adapterAuditDB" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="shrine" password="demouser" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://mysql:3306/adapterAuditDB"
               testOnBorrow="true" validationQuery="SELECT 1"/>
  
-    <Resource name="jdbc/qepAuditDB" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/qepAuditDB" global="jdbc/qepAuditDB" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="shrine" password="demouser" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://mysql:3306/qepAuditDB"
               testOnBorrow="true" validationQuery="SELECT 1"/>
  
-    <Resource name="jdbc/stewardDB" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/stewardDB" global="jdbc/stewardDB" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="shrine" password="demouser" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://mysql:3306/stewardDB"

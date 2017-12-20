@@ -34,6 +34,8 @@ RUN set -ex \
   && tar -zxvf apache-tomcat-8.0.39.tar.gz -C /opt/shrine/tomcat --strip-components=1 
 
 
+ENV CATALINA_OPTS " -Dakka.daemonic=on -Dakka.jvm-exit-on-fatal-error=off"
+
 #-----------------------------------------------------------#
 #                                                           #
 #            SHRINE WAR FILES & WEB CLIENT                  #
@@ -62,6 +64,7 @@ RUN set -ex \
 #                 GENERATE KEYSTORE                          #
 #                                                            #
 #------------------------------------------------------------#
+RUN echo "REFRESHH"
 COPY conf/keytool.sh ${JAVA_HOME}/bin/docker-keytool.sh
 RUN set -ex \
   && cd ${JAVA_HOME}/bin \
@@ -72,14 +75,15 @@ RUN set -ex \
 #                COPY CONFIG FILES                           #
 #                                                            #
 #------------------------------------------------------------#
-COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
+COPY conf/shrine.conf.bk /opt/shrine/tomcat/lib/shrine.conf
 RUN set -ex \
   && mkdir -p /opt/shrine/tomcat/conf/Catalina/localhost
 COPY conf/shrine.xml /opt/shrine/tomcat/conf/Catalina/localhost/shrine.xml
+COPY conf/steward.xml /opt/shrine/tomcat/conf/Catalina/localhost/steward.xml
 COPY conf/tomcat-server.xml /opt/shrine/tomcat/conf/server.xml 
 COPY conf/mysql-context.xml /opt/shrine/tomcat/conf/context.xml 
 COPY conf/i2b2_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/i2b2_config_data.js
-COPY conf/cell_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/cell_config_data.js
+COPY conf/cell_config_data.js.bk /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/cell_config_data.js
 
 #------------------------------------------------------------#
 #                                                            #
@@ -112,7 +116,7 @@ RUN set -ex \
 #                                                            #
 #------------------------------------------------------------#
 #EXPOSE 8009 
-#EXPOSE 8080 
+EXPOSE 8080 
 EXPOSE 6443
 
 CMD ["/opt/shrine/tomcat/bin/catalina.sh", "run"]

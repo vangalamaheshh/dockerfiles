@@ -7,7 +7,7 @@ KEYSTORE_FILE=shrine.keystore
 KEYSTORE_PASSWORD="sslpass"
 
 #Human-readable name for the cryptographic certificate generated for this Shrine node.
-KEYSTORE_ALIAS="shrine-ssl"
+KEYSTORE_ALIAS="localhost"
 
 #Human-readable name for the cryptographic certificate generated for this Shrine node.
 KEYSTORE_HUMAN="Docker Cert for ${KEYSTORE_ALIAS}"
@@ -24,7 +24,7 @@ KEYSTORE_COUNTRY="US"
 #Specify Host IP Address
 CN="127.0.0.1"
 #Name Docker Hostnames so certificate can be shared by multiple containers
-SAN="IP:127.0.0.1,DNS:adapter,DNS:adapter2,DNS:hub,DNS:qep,DNS:qep2"
+SAN="IP:127.0.0.1,DNS:localhost"
 
 # Generate the Server Key
 
