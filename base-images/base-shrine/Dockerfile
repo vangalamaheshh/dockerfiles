@@ -68,18 +68,19 @@ RUN set -ex \
 #RUN set -ex \
 #  && cd ${JAVA_HOME}/bin \
 #  && bash docker-keytool.sh
-COPY conf/generate-qa-certs.sh /opt/shrine/keytool.sh
-RUN set -ex \
-  && cd /opt/shrine \
-  && bash keytool.sh \
-  && cp localhost/localhost.catalyst.jks shrine.keystore
+#COPY conf/generate-qa-certs.sh /opt/shrine/keytool.sh
+#COPY conf/openssl.cnf /opt/shrine/openssl.cnf
+#RUN set -ex \
+#  && cd /opt/shrine \
+#  && bash keytool.sh \
+#  && cp localhost/localhost.catalyst.jks shrine.keystore
 
 #------------------------------------------------------------#
 #                                                            #
 #                COPY CONFIG FILES                           #
 #                                                            #
 #------------------------------------------------------------#
-COPY conf/shrine.conf.bk /opt/shrine/tomcat/lib/shrine.conf
+COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
 RUN set -ex \
   && mkdir -p /opt/shrine/tomcat/conf/Catalina/localhost
 COPY conf/shrine.xml /opt/shrine/tomcat/conf/Catalina/localhost/shrine.xml
@@ -87,7 +88,7 @@ COPY conf/steward.xml /opt/shrine/tomcat/conf/Catalina/localhost/steward.xml
 COPY conf/tomcat-server.xml /opt/shrine/tomcat/conf/server.xml 
 COPY conf/mysql-context.xml /opt/shrine/tomcat/conf/context.xml 
 COPY conf/i2b2_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/i2b2_config_data.js
-COPY conf/cell_config_data.js.bk /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/cell_config_data.js
+COPY conf/cell_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/cell_config_data.js
 
 #------------------------------------------------------------#
 #                                                            #
@@ -104,9 +105,7 @@ RUN set -ex \
 RUN set -ex \
   && cd /opt/shrine/tomcat/lib \
   && wget ${SHRINE_DEMO_URL}/AdapterMappings_i2b2_DemoData.csv -O AdapterMappings.csv \
-  && wget ${SHRINE_DEMO_URL}/AdapterMappings_i2b2_DemoData.xml -O AdapterMappings.xml \
-  && wget ${SHRINE_DEMO_URL}/SCHEMES.sql \
-  && wget ${SHRINE_DEMO_URL}/ShrineDemo.sql
+  && wget ${SHRINE_DEMO_URL}/AdapterMappings_i2b2_DemoData.xml -O AdapterMappings.xml 
 
 
 # QEP?
@@ -119,7 +118,7 @@ RUN set -ex \
 #                    EXPOSE PORTS                            #
 #                                                            #
 #------------------------------------------------------------#
-#EXPOSE 8009 
+EXPOSE 8009 
 EXPOSE 8080 
 EXPOSE 6443
 
