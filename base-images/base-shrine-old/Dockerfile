@@ -4,7 +4,7 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
   && yum update -y \
-  && yum install -y vim less unzip wget postfix ntp openssl
+  && yum install -y vim less unzip wget postfix ntp openssl subversion
 
 #----------------------------------------------------------#
 #                                                          #
@@ -46,23 +46,18 @@ ENV SHRINE_NEXUS_URL "https://repo.open.med.harvard.edu/nexus/content/groups/pub
 
 RUN set -ex \
   && cd /opt/shrine/tomcat/webapps \
-  # SHRINE WAR
   && wget --no-check-certificate ${SHRINE_NEXUS_URL}/shrine-war/${SHRINE_VERSION}/shrine-war-${SHRINE_VERSION}.war -O shrine.war \
   && mkdir shrine \
   && cd shrine \
   && jar xvf ../shrine.war \
   && cd ../ \
-  # STEWARD WAR
   && wget --no-check-certificate ${SHRINE_NEXUS_URL}/steward/${SHRINE_VERSION}/steward-${SHRINE_VERSION}.war -O steward.war \
-  # SHRINE-PROXY WAR
   && wget --no-check-certificate ${SHRINE_NEXUS_URL}/shrine-proxy/${SHRINE_VERSION}/shrine-proxy-${SHRINE_VERSION}.war -O shrine-proxy.war \
-  # SHRINE-WEBCLIENT 
-  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/shrine-webclient/${SHRINE_VERSION}/shrine-webclient-${SHRINE_VERSION}-dist.zip -O shrine-webclient.zip \
-	# SHRINE-DASHBOARD WAR
-  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/dashboard-war/${SHRINE_VERSION}/dashboard-war-${SHRINE_VERSION}.war -O shrine-dashboard.war \
-  # SHRINE-META WAR
-  && wget --no-check-certificate ${SHRINE_NEXUS_URL}/meta-war/${SHRINE_VERSION}/meta-war-${SHRINE_VERSION}.war -O shrine-meta.war \
-  && unzip shrine-webclient.zip
+  #&& wget --no-check-certificate ${SHRINE_NEXUS_URL}/shrine-webclient/${SHRINE_VERSION}/shrine-webclient-${SHRINE_VERSION}-dist.zip -O shrine-webclient.zip \
+	#&& wget --no-check-certificate ${SHRINE_NEXUS_URL}/dashboard-war/${SHRINE_VERSION}/dashboard-war-${SHRINE_VERSION}.war -O shrine-dashboard.war \
+  && svn export https://open.med.harvard.edu/svn/shrine/releases/${SHRINE_VERSION}/code/shrine-webclient shrine-webclient
+  #&& wget --no-check-certificate ${SHRINE_NEXUS_URL}/meta-war/${SHRINE_VERSION}/meta-war-${SHRINE_VERSION}.war -O shrine-meta.war \
+  #&& unzip shrine-webclient.zip
 
 
 #------------------------------------------------------------#
@@ -113,6 +108,12 @@ RUN set -ex \
   && wget ${SHRINE_DEMO_URL}/AdapterMappings_i2b2_DemoData.csv -O AdapterMappings.csv \
   && wget ${SHRINE_DEMO_URL}/AdapterMappings_i2b2_DemoData.xml -O AdapterMappings.xml 
 
+
+# QEP?
+#COPY conf/steward.conf /opt/shrine/tomcat/lib/steward.conf
+#COPY conf/steward.xml /opt/shrine/tomcat/conf/Catalina/localhost/steward.xml
+#COPY conf/cell_config_data.js /opt/shrine/tomcat/webapps/shrine-webclient/js-i2b2/cells/SHRINE/
+
 #------------------------------------------------------------#
 #                                                            #
 #                    EXPOSE PORTS                            #
@@ -120,6 +121,6 @@ RUN set -ex \
 #------------------------------------------------------------#
 EXPOSE 8009 
 EXPOSE 8080 
-EXPOSE 6443
+#EXPOSE 6443
 
 CMD ["/opt/shrine/tomcat/bin/catalina.sh", "run"]
