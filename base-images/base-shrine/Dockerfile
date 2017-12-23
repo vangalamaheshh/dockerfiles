@@ -41,7 +41,7 @@ ENV CATALINA_OPTS " -Dakka.daemonic=on -Dakka.jvm-exit-on-fatal-error=off"
 #            SHRINE WAR FILES & WEB CLIENT                  #
 #                                                           #
 #-----------------------------------------------------------#
-ENV SHRINE_VERSION 1.19.2
+ENV SHRINE_VERSION 1.22.8
 ENV SHRINE_NEXUS_URL "https://repo.open.med.harvard.edu/nexus/content/groups/public/net/shrine"
 
 RUN set -ex \
