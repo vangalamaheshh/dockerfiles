@@ -33,8 +33,8 @@ RUN set -ex \
   && wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.39/bin/apache-tomcat-8.0.39.tar.gz \
   && tar -zxvf apache-tomcat-8.0.39.tar.gz -C /opt/shrine/tomcat --strip-components=1 
 
-
-ENV CATALINA_OPTS " -Dakka.daemonic=on -Dakka.jvm-exit-on-fatal-error=off"
+ENV CATALINA_HOME "/opt/shrine/tomcat"
+#ENV CATALINA_OPTS " -Dakka.daemonic=on -Dakka.jvm-exit-on-fatal-error=off"
 
 #-----------------------------------------------------------#
 #                                                           #
@@ -70,16 +70,7 @@ RUN set -ex \
 #                 GENERATE KEYSTORE                          #
 #                                                            #
 #------------------------------------------------------------#
-#COPY conf/keytool.sh ${JAVA_HOME}/bin/docker-keytool.sh
-#RUN set -ex \
-#  && cd ${JAVA_HOME}/bin \
-#  && bash docker-keytool.sh
-#COPY conf/generate-qa-certs.sh /opt/shrine/keytool.sh
-#COPY conf/openssl.cnf /opt/shrine/openssl.cnf
-#RUN set -ex \
-#  && cd /opt/shrine \
-#  && bash keytool.sh \
-#  && cp localhost/localhost.catalyst.jks shrine.keystore
+COPY keys/shrine.keystore /opt/shrine/shrine.keystore
 
 #------------------------------------------------------------#
 #                                                            #

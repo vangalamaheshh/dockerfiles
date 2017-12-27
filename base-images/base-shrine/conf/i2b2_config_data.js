@@ -17,7 +17,7 @@
     domain: "i2b2demo",
     name: "SHRINE",
     urlCellPM: "http://core:9090/i2b2/services/PMService/",
-    allowAnalysis: false,
+    allowAnalysis: true, //it was "false" before; Mahesh changed it to "true" to test
     debug: true,
     isSHRINE: true
   }]
