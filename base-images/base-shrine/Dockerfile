@@ -113,4 +113,5 @@ EXPOSE 8009
 EXPOSE 8080 
 EXPOSE 6443
 
+COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
 CMD ["/opt/shrine/tomcat/bin/catalina.sh", "run"]

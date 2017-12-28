@@ -78,7 +78,7 @@ create table PRIVILEGED_USER(
   constraint ix_PRIVILEGED_USER_username_domain unique (username, domain)
 ) engine=innodb default charset=latin1;
 
-
+/* Hub Query */
 create table HUB_QUERY (
   NETWORK_QUERY_ID bigint not null,
     DOMAIN varchar(256) not null,
@@ -99,3 +99,4 @@ create table HUB_QUERY_RESULT (
   index ix_HUB_QUERY_RESULT_network_query_id (NETWORK_QUERY_ID),
   index ix_HUB_QUERY_RESULT_network_query_id_node_name (NETWORK_QUERY_ID, NODE_NAME)
 ) engine=innodb default charset=latin1;
+
