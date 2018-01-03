@@ -11,17 +11,17 @@ RUN set -ex \
   && git clone http://github.com/i2b2/i2b2-webclient.git admin
 
 # web-server installation
-COPY i2b2_config_data.admin.js /var/www/html/admin/i2b2_config_data.js
-COPY i2b2_loader.admin.js /var/www/html/admin/js-i2b2/i2b2_loader.js
-COPY index.admin.php /var/www/html/admin/index.php
+COPY config/admin/i2b2_config_data.admin.js /var/www/html/admin/i2b2_config_data.js
+COPY config/admin/i2b2_loader.admin.js /var/www/html/admin/js-i2b2/i2b2_loader.js
+COPY config/admin/index.admin.php /var/www/html/admin/index.php
 
 
 # web-client installation
 RUN set -ex \
   && git clone http://github.com/i2b2/i2b2-webclient.git webclient
 
-COPY i2b2_config_data.client.js /var/www/html/webclient/i2b2_config_data.js
-COPY index.client.php /var/www/html/webclient/index.php
+COPY config/client/i2b2_config_data.client.js /var/www/html/webclient/i2b2_config_data.js
+COPY config/client/index.client.php /var/www/html/webclient/index.php
 
 
 EXPOSE 80
