@@ -1,6 +1,8 @@
 #!/bin/bash
 
-/bin/bash /opt/jboss/i2b2/install_i2b2_cells.bash
+if [ ! -z ${LOAD_DATA} ]; then
+  /bin/bash /opt/jboss/i2b2/install_i2b2_cells.bash
+fi
 cd /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.server-common
 ant clean dist deploy jboss_pre_deployment_setup
 cd /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm

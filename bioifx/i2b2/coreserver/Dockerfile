@@ -75,12 +75,12 @@ RUN set -ex \
   && git clone https://github.com/i2b2/i2b2-core-server \
   && git clone https://github.com/i2b2/i2b2-data
 
-COPY db.Crcdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Crcdata/db.properties
-COPY db.Hivedata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Hivedata/db.properties
-COPY db.Imdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Imdata/db.properties
-COPY db.Metadata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Metadata/db.properties
-COPY db.Pmdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Pmdata/db.properties
-COPY db.Workdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
+COPY config/data-repo/db.Crcdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Crcdata/db.properties
+COPY config/hive/db.Hivedata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Hivedata/db.properties
+COPY config/im/db.Imdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Imdata/db.properties
+COPY config/meta/db.Metadata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Metadata/db.properties
+COPY config/pm/db.Pmdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Pmdata/db.properties
+COPY config/workplace/db.Workdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
 
 
 #--------------------------------------------#
@@ -102,13 +102,13 @@ RUN set -ex \
   && sed -i "s|\(jboss\.home\)=.*|\1=${JBOSS_HOME}|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/build.properties \
   && sed -i "s|wildfly-10.0.0.Final|jboss/wildfly|g" /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/etc/spring/im_application_directory.properties
 
-COPY pm-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/etc/jboss/pm-ds.xml
-COPY ontology.properties  /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/spring/ontology.properties
-COPY ont-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/jboss/ont-ds.xml
-COPY crc.loader.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/edu.harvard.i2b2.crc.loader.properties
-COPY CRCLoaderApplicationContext.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/CRCLoaderApplicationContext.xml
-COPY crc.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/crc.properties
-COPY crc-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/jboss/crc-ds.xml
+COPY config/pm/pm-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.pm/etc/jboss/pm-ds.xml
+COPY config/ontology/ontology.properties  /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/spring/ontology.properties
+COPY config/ontology/ont-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.ontology/etc/jboss/ont-ds.xml
+COPY config/data-repo/crc.loader.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/edu.harvard.i2b2.crc.loader.properties
+COPY config/data-repo/CRCLoaderApplicationContext.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/CRCLoaderApplicationContext.xml
+COPY config/data-repo/crc.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/spring/crc.properties
+COPY config/data-repo/crc-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.crc/etc/jboss/crc-ds.xml
 COPY config/workplace/workplace.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.workplace/etc/spring/workplace.properties
 COPY config/workplace/work-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.workplace/etc/jboss/work-ds.xml
 COPY config/file-repo/file-repo.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.fr/etc/spring/edu.harvard.i2b2.fr.properties
@@ -131,6 +131,7 @@ COPY cmd.bash /opt/jboss/cmd.bash
 
 #----       RUN DATA INSTALLATION SCRIPT      --------#
 #----       followed by Cells installation.   --------#
+ENV LOAD_DATA "" # if true loads data into oracle
 CMD ["/bin/bash", "/opt/jboss/cmd.bash"]
 
 
