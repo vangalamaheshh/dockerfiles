@@ -73,6 +73,9 @@ WORKDIR /opt/jboss/i2b2
 
 RUN set -ex \
   && git clone https://github.com/i2b2/i2b2-core-server \
+  && cd i2b2-core-server \
+  && git checkout -b stable_one 6925c2602440d1d58768ace2da18ba62003e950e \
+  && cd .. \
   && git clone https://github.com/i2b2/i2b2-data
 
 COPY config/data-repo/db.Crcdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Crcdata/db.properties
@@ -133,10 +136,4 @@ COPY cmd.bash /opt/jboss/cmd.bash
 #----       followed by Cells installation.   --------#
 ENV LOAD_DATA "" # if true loads data into oracle
 CMD ["/bin/bash", "/opt/jboss/cmd.bash"]
-
-
-
-
-
-
 
