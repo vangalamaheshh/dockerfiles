@@ -1,3 +1,4 @@
+-- login with i2b2hive creds and insert following rows
 insert into ONT_DB_LOOKUP
 (C_DOMAIN_ID, C_PROJECT_PATH, C_OWNER_ID, C_DB_FULLSCHEMA, C_DB_DATASOURCE, C_DB_SERVERTYPE, C_DB_NICENAME)
 VALUES
