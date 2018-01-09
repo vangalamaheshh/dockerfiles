@@ -40,7 +40,7 @@
     <driver-class>oracle.jdbc.OracleDriver</driver-class>
     <driver>ojdbc6.jar</driver>
     <security>
-      <user-name>SHRINE_ONT</user-name>
+      <user-name>shrine_ont</user-name>
       <password>demouser</password>
     </security>
     <validation>

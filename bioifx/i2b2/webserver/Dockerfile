@@ -7,7 +7,7 @@ WORKDIR /var/www/html
 RUN set -ex \
   && apt-get update -y \
   && apt-get upgrade -y \
-  && apt-get install -y git php5-curl \
+  && apt-get install -y git \
   && git clone http://github.com/i2b2/i2b2-webclient.git admin
 
 # web-server installation

@@ -1,3 +1,4 @@
+-- login with shrine_ont creds and insert following rows
 INSERT INTO SCHEMES(C_KEY, C_NAME, C_DESCRIPTION)  VALUES('SHRINE|SEX:','Demographics (Sex)','Demographics (Sex)');
 INSERT INTO SCHEMES(C_KEY, C_NAME, C_DESCRIPTION)  VALUES('SHRINE|LANGUAGE:','Demographics (Language)','Demographics (Language)');
 INSERT INTO SCHEMES(C_KEY, C_NAME, C_DESCRIPTION)  VALUES('SHRINE|MARITAL:','Demographics (Marital)','Demographics (Marital Status)');

@@ -1,3 +1,4 @@
+-- login with shrine_ont creds and insert following rows
 -- DELETE potential conflict entry from previous install, just to be safe.
 delete from TABLE_ACCESS where c_table_cd = 'SHRINE';
 

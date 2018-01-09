@@ -1,3 +1,4 @@
+-- login with i2b2pm creds and insert following rows
 -- Create user shrine/demouser
 insert into PM_USER_DATA
 (user_id, full_name, password, status_cd)
