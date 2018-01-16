@@ -44,7 +44,7 @@ RUN /bin/bash -c 'curl -s "https://get.sdkman.io" | bash \
 #-- INSTALL R-3.2.1
 RUN /bin/bash -c 'mkdir -p /usr/local/bin/R \
   && cd /usr/local/bin/R \
-  && curl -O https://cran.r-project.org/src/base/R-3/R-3.2.1.tar.gz R-3.2.1.tar.gz \
+  && curl https://cran.r-project.org/src/base/R-3/R-3.2.1.tar.gz -o R-3.2.1.tar.gz \
   && tar -zxvf R-3.2.1.tar.gz \
   && cd R-3.2.1 \
   && ./configure --prefix=/usr/local/bin/R \
