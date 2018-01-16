@@ -48,6 +48,11 @@ RUN /bin/bash -c 'mkdir -p /usr/local/bin/R \
   && tar -zxvf R-3.2.1.tar.gz \
   && cd R-3.2.1 \
   && ./configure --prefix=/usr/local/bin/R \
+      --enable-R-shlib --with-readline \
+      --enable-R-profiling --enable-memory-profiling \
+      --with-libpng --without-jpeglib --without-libtiff \
+      --without-system-xz --without-ICU \
+      --without-recommended-packages \
   && make \
   && make install'
 
