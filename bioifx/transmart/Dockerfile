@@ -42,26 +42,25 @@ RUN /bin/bash -c 'curl -s "https://get.sdkman.io" | bash \
   && sdk install groovy 2.4.5'
 
 #-- INSTALL R-3.2.1
-RUN /bin/bash -c 'mkdir -p /usr/local/bin/R \
-  && cd /usr/local/bin/R \
-  && curl https://cran.r-project.org/src/base/R-3/R-3.2.1.tar.gz -o R-3.2.1.tar.gz \
-  && tar -zxvf R-3.2.1.tar.gz \
-  && cd R-3.2.1 \
-  && ./configure --prefix=/usr/local/bin/R \
-      --enable-R-shlib --with-readline \
-      --enable-R-profiling --enable-memory-profiling \
-      --with-libpng --without-jpeglib --without-libtiff \
-      --without-system-xz --without-ICU \
-      --without-recommended-packages \
-  && make \
-  && make install'
-
-ENV PATH $PATH:/usr/local/bin/R/bin
 ENV CRAN_MIRROR "http://cran.mirrors.hoobly.com"
+COPY config/vars.sample /usr/local/bin/transmart/transmart-data/vars
+COPY config/other_pkg.R /usr/local/bin/transmart/transmart-data/R/other_pkg.R
+RUN /bin/bash -c 'source /usr/local/bin/transmart/transmart-data/vars \
+  && sed -i "s|http.*|${CRAN_MIRROR}|g" /usr/local/bin/transmart/transmart-data/R/Makefile \
+  && make -C /usr/local/bin/transmart/transmart-data/R install_packages \
+  && echo "export PATH=/usr/local/bin/transmart/transmart-data/R/root/bin:$PATH" >/etc/profile.d/Rpath.sh \
+  && source /etc/profile.d/Rpath.sh'
 
-#-- INSTALL R Packages
+#-- INSTALL CONFIG
+RUN /bin/bash -c 'source /usr/local/bin/transmart/transmart-data/vars \ 
+  && make -C /usr/local/bin/transmart/transmart-data/config install \
+  && mkdir -p /usr/share/tomcat7/.grails/transmartConfig/ \
+  && cp ${HOME}/.grails/transmartConfig/*.groovy /usr/share/tomcat7/.grails/transmartConfig/'
+
+#-- WAR FILES
 RUN set -ex \
-  && Rscript /usr/local/bin/transmart/transmart-data/R/cran_pkg.R
+  && curl http://library.transmartfoundation.org/release/release16_2_0_artifacts/transmart.war --output /var/lib/tomcat7/webapps/transmart.war \
+  && curl http://library.transmartfoundation.org/release/release16_2_0_artifacts/gwava.war --output /var/lib/tomcat7/webapps/gwava.war
 
 #-----------------------------------------------#
 #           TOMCAT BUG WORKAROUND               #
@@ -69,4 +68,8 @@ RUN set -ex \
 RUN set -ex \
   && sed -i "s/-Xmx128m/-Xms512m -Xmx2g/g" /etc/default/tomcat7
 
-
+# Run SOLR
+# Run database load
+COPY config/cmd.bash /usr/local/bin/cmd.bash
+EXPOSE 8080
+CMD ["/bin/bash", "-c", "/usr/local/bin/cmd.bash"]
