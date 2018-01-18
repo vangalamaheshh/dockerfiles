@@ -66,10 +66,11 @@ RUN set -ex \
 #           TOMCAT BUG WORKAROUND               #
 #-----------------------------------------------#
 RUN set -ex \
-  && sed -i "s|-Xmx128m|-Duser.timezone=America/New_York -Xms512m -Xmx2g|g" /etc/default/tomcat7
+  && sed -i "s|-Xmx128m|-Xms512m -Xmx2g|g" /etc/default/tomcat7
 
 # Run SOLR
 # Run database load
+ENV JAVA_OPTS "-Duser.timezone=UTC"
 COPY config/cmd.bash /usr/local/bin/cmd.bash
 RUN set -ex \
   && chmod 775 /usr/local/bin/cmd.bash
