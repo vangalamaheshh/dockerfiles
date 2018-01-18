@@ -70,7 +70,9 @@ RUN set -ex \
 
 # Run SOLR
 # Run database load
+RUN echo "FForce load"
 ENV JAVA_OPTS "-Duser.timezone=UTC"
+ENV PATH $PATH:/root/.sdkman/candidates/groovy/current/bin:/root/.sdkman/candidates/grails/current/bin
 COPY config/cmd.bash /usr/local/bin/cmd.bash
 RUN set -ex \
   && chmod 775 /usr/local/bin/cmd.bash
