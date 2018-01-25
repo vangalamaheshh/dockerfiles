@@ -1,6 +1,6 @@
 /* Working tables in shrine_query_history */
 create table `problems` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`codec` TEXT NOT NULL,`stampText` TEXT NOT NULL,`summary` TEXT NOT NULL,`description` TEXT NOT NULL,`detailsXml` TEXT NOT NULL,`epoch` BIGINT NOT NULL);
-create index `idx_epoch` on `problems` (`epoch`)
+create index `idx_epoch` on `problems` (`epoch`);
 
 create table SHRINE_QUERY(
   id int not null auto_increment,
