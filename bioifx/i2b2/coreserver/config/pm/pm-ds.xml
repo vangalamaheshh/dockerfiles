@@ -2,7 +2,7 @@
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema">
 	<datasource jta="false" jndi-name="java:/PMBootStrapDS"
 		pool-name="PMBootStrapDS" enabled="true" use-ccm="false">
-		<connection-url>jdbc:oracle:thin:@oracle:1521:XE</connection-url>
+		<connection-url>jdbc:oracle:thin:@oracle:1521/XE</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>
 		<driver>ojdbc6.jar</driver>
 		<security>

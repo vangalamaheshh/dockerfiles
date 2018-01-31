@@ -2,7 +2,7 @@
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema">
 	<datasource jta="false" jndi-name="java:/OntologyDemoDS"
 		pool-name="OntologyDemoDS" enabled="true" use-ccm="false">
-		<connection-url>jdbc:oracle:thin:@oracle:1521:XE</connection-url>
+		<connection-url>jdbc:oracle:thin:@oracle:1521/XE</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>
 		<driver>ojdbc6.jar</driver>
 		<security>
@@ -19,7 +19,7 @@
 	</datasource>
 	<datasource jta="false" jndi-name="java:/OntologyBootStrapDS"
 		pool-name="OntologyBootStrapDS" enabled="true" use-ccm="false">
-		<connection-url>jdbc:oracle:thin:@oracle:1521:XE</connection-url>
+		<connection-url>jdbc:oracle:thin:@oracle:1521/XE</connection-url>
 		<driver-class>oracle.jdbc.OracleDriver</driver-class>
 		<driver>ojdbc6.jar</driver>
 		<security>
@@ -36,7 +36,7 @@
 	</datasource>
   <datasource jta="false" jndi-name="java:/OntologyShrineDS"
     pool-name="OntologyDemoDS" enabled="true" use-ccm="false">
-    <connection-url>jdbc:oracle:thin:@oracle:1521:XE</connection-url>
+    <connection-url>jdbc:oracle:thin:@oracle:1521/XE</connection-url>
     <driver-class>oracle.jdbc.OracleDriver</driver-class>
     <driver>ojdbc6.jar</driver>
     <security>
