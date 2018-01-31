@@ -1,7 +1,7 @@
 /*
 
 */
-ALTER TABLESPACE SYSTEM ADD DATAFILE '/u01/app/oracle/oradata/XE/userdata03.dbf' SIZE 2000M;
+-- ALTER TABLESPACE SYSTEM ADD DATAFILE '/u01/app/oracle/oradata/XE/userdata03.dbf' SIZE 2000M;
 
 -- CRC Data User
 create user I2B2DEMODATA identified by demouser;
