@@ -3,6 +3,9 @@ FROM mvangala/base-nginx:python3.6-a6bbf7331186
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
+  && pip install flask requests
+
+RUN set -ex \
   && mkdir -p /usr/local/bin
 
 WORKDIR /usr/local/bin
@@ -57,9 +60,10 @@ COPY uwsgi.ini /usr/local/bin/AVA/uwsgi.ini
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
 
 WORKDIR /usr/local/bin/AVA
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]
 
 
