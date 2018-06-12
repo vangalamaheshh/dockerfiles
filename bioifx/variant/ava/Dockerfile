@@ -30,7 +30,8 @@ RUN set -ex \
 
 RUN set -ex \
   && git clone https://github.com/vangalamaheshh/Intervar.git \
-  && chmod 755 /usr/local/bin/Intervar/Intervar.py
+  && chmod 755 /usr/local/bin/Intervar/Intervar.py \
+  && git clone https://github.com/dst-umms/AVA.git
 
 COPY ./mim2gene.txt /usr/local/bin/Intervar/intervardb/mim2gene.txt
 
@@ -41,17 +42,17 @@ COPY ./mim2gene.txt /usr/local/bin/Intervar/intervardb/mim2gene.txt
 ENV NGINX_MAX_UPLOAD 0
 
 # Which uWSGI .ini file should be used, to make it customizable
-ENV UWSGI_INI /usr/local/bin/uwsgi.ini
+ENV UWSGI_INI /usr/local/bin/AVA/uwsgi.ini
 # URL under which static (not modified by Python) files will be requested
 # They will be served by Nginx directly, without being handled by uWSGI
 ENV STATIC_URL /static
 # Absolute path in where the static files wil be
-ENV STATIC_PATH /usr/local/bin/
+ENV STATIC_PATH /usr/local/bin/AVA
 # If STATIC_INDEX is 1, serve / with /static/index.html directly (or the static URL configured)
 # ENV STATIC_INDEX 1
 ENV STATIC_INDEX 0
 # Copy the entrypoint that will generate Nginx additional configs
-COPY uwsgi.ini /usr/local/bin/uwsgi.ini
+COPY uwsgi.ini /usr/local/bin/AVA/uwsgi.ini
 COPY entrypoint.sh /entrypoint.sh
 COPY server.py /usr/local/bin/server.py
 RUN chmod +x /entrypoint.sh
