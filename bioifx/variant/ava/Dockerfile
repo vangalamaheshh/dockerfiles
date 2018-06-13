@@ -32,12 +32,94 @@ RUN set -ex \
   && tar -zxvf /usr/local/bin/annovar.latest.tar.gz
 
 RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_esp6500siv2_all.txt.gz \ 
+    http://www.openbioinformatics.org/annovar/download/hg19_esp6500siv2_all.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_esp6500siv2_all.txt.idx.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_esp6500siv2_all.txt.idx.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_1000g2015aug.zip \
+    http://www.openbioinformatics.org/annovar/download/hg19_1000g2015aug.zip
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_avsnp147.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_avsnp147.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_avsnp147.txt.idx.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_avsnp147.txt.idx.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_dbnsfp33a.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_dbnsfp33a.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_dbnsfp33a.txt.idx.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_dbnsfp33a.txt.idx.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_clinvar_20170905.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_clinvar_20170905.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_clinvar_20170905.txt.idx.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_clinvar_20170905.txt.idx.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_exac03.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_exac03.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_exac03.txt.idx.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_exac03.txt.idx.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_dbscsnv11.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_dbscsnv11.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_dbscsnv11.txt.idx.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_dbscsnv11.txt.idx.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_dbnsfp31a_interpro.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_dbnsfp31a_interpro.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_dbnsfp31a_interpro.txt.idx.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_dbnsfp31a_interpro.txt.idx.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/rmsk.txt.gz \
+    http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/rmsk.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_ensGene.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_ensGene.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_ensGeneMrna.fa.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_ensGeneMrna.fa.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_knownGene.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_knownGene.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_kgXref.txt.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_kgXref.txt.gz
+RUN set -ex \
+  && wget -O /usr/local/bin/annovar/humandb/hg19_knownGeneMrna.fa.gz \
+    http://www.openbioinformatics.org/annovar/download/hg19_knownGeneMrna.fa.gz
+
+RUN set -ex \
+  && unzip /usr/local/bin/annovar/humandb/hg19_1000g2015aug.zip -d /usr/local/bin/annovar/humandb/ 
+
+RUN set -ex \
+  && gunzip /usr/local/bin/annovar/humandb/*.gz
+
+RUN set -ex \
   && git clone https://github.com/vangalamaheshh/Intervar.git \
   && chmod 755 /usr/local/bin/Intervar/Intervar.py \
   && git clone https://github.com/dst-umms/AVA.git \
-  && conda env update -f /usr/local/bin/AVA/env/requirements.yaml
+  && conda env update -f /usr/local/bin/AVA/env/requirements.yaml \
+  && conda env create -f /usr/local/bin/AVA/env/py2_env.yaml
 
 COPY ./mim2gene.txt /usr/local/bin/Intervar/intervardb/mim2gene.txt
+
+RUN set -ex \
+  && rm /usr/local/bin/annovar/humandb/*rmsk.tx* \
+  && wget -O /usr/local/bin/annovar/humandb/rmsk.txt.gz \
+    http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/rmsk.txt.gz \
+  && gunzip /usr/local/bin/annovar/humandb/rmsk.txt.gz
+
+RUN set -ex \
+  && apt-get install -y less gawk \
+  && gawk '{if(NF == 17) { print $0;}}' /usr/local/bin/annovar/humandb/rmsk.txt \
+    1>/usr/local/bin/annovar/humandb/hg19_rmsk.txt
 
 # set up flask with nginx
 # By default, allow unlimited file sizes, modify it to limit the file sizes
