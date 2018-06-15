@@ -102,15 +102,6 @@ RUN set -ex \
   && gunzip /usr/local/bin/annovar/humandb/*.gz
 
 RUN set -ex \
-  && git clone https://github.com/vangalamaheshh/Intervar.git \
-  && chmod 755 /usr/local/bin/Intervar/Intervar.py \
-  && git clone https://github.com/dst-umms/AVA.git \
-  && conda env update -f /usr/local/bin/AVA/env/requirements.yaml \
-  && conda env create -f /usr/local/bin/AVA/env/py2_env.yaml
-
-COPY ./mim2gene.txt /usr/local/bin/Intervar/intervardb/mim2gene.txt
-
-RUN set -ex \
   && rm /usr/local/bin/annovar/humandb/*rmsk.tx* \
   && wget -O /usr/local/bin/annovar/humandb/rmsk.txt.gz \
     http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/rmsk.txt.gz \
@@ -121,6 +112,16 @@ RUN set -ex \
   && gawk '{if(NF == 17) { print $0;}}' /usr/local/bin/annovar/humandb/rmsk.txt \
     1>/usr/local/bin/annovar/humandb/hg19_rmsk.txt
 
+RUN set -ex \
+  && rm -rf /usr/local/bin/Intervar \
+  && rm -rf /usr/local/bin/AVA \
+  && git clone https://github.com/vangalamaheshh/Intervar.git \
+  && chmod 755 /usr/local/bin/Intervar/Intervar.py \
+  && git clone https://github.com/dst-umms/AVA.git \
+  && conda env update -f /usr/local/bin/AVA/env/requirements.yaml \
+  && conda env create -f /usr/local/bin/AVA/env/py2_env.yaml
+
+COPY ./mim2gene.txt /usr/local/bin/Intervar/intervardb/mim2gene.txt
 # set up flask with nginx
 # By default, allow unlimited file sizes, modify it to limit the file sizes
 # To have a maximum of 1 MB (Nginx's default) change the line to:
