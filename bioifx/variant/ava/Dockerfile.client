@@ -1,0 +1,28 @@
+FROM ubuntu:16.04
+
+MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
+
+RUN set -ex \
+  && apt-get update -y \
+  && apt-get install -y vim wget curl unzip
+
+RUN set -ex \
+  && mkdir -p /usr/local/bin/sencha-sdks
+
+WORKDIR /usr/local/bin/sencha-sdks
+
+COPY ext-6.2.0-gpl.zip /usr/local/bin/sencha-sdks/sdk.zip 
+
+RUN set -ex \
+  && unzip /usr/local/bin/sencha-sdks/sdk.zip -d /usr/local/bin/sencha-sdks \
+  && unzip /usr/local/bin/cmd.zip -d /usr/local/bin/sencha-sdks
+
+RUN set -ex \
+  && wget -O /usr/local/bin/sencha-sdks/cmd.sh.zip http://cdn.sencha.com/cmd/6.5.3/no-jre/SenchaCmd-6.5.3-linux-amd64.sh.zip \
+  && unzip -p /usr/local/bin/sencha-sdks/cmd.sh.zip > /usr/local/bin/sencha-sdks/cmd.sh
+
+RUN set -ex \
+  && chmod +x /usr/local/bin/sencha-sdks/cmd.sh \
+  && /usr/local/bin/sencha-sdks/cmd.sh -q
+
+ENV PATH $PATH:/root/bin/Sencha/Cmd
