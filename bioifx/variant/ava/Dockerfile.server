@@ -139,12 +139,12 @@ ENV STATIC_PATH /usr/local/bin/AVA
 # ENV STATIC_INDEX 1
 ENV STATIC_INDEX 0
 # Copy the entrypoint that will generate Nginx additional configs
-COPY uwsgi.ini /usr/local/bin/AVA/uwsgi.ini
+COPY uwsgi.ini /usr/local/bin/AVA/server/uwsgi.ini
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 
-WORKDIR /usr/local/bin/AVA
+WORKDIR /usr/local/bin/AVA/server
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]
