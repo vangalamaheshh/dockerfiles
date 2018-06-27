@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nginx:
+    image: 'mvangala/bioifx_variant_ava-nginx:latest'
+    ports:
+      - 80:80
+
+  ava-server:
+    image: 'mvangala/bioifx_variant_ava-server:latest'
+
+  ava-client:
+    image: 'mvangala/bioifx_variant_ava-client:latest'
