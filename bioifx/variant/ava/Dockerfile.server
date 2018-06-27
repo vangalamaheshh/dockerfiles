@@ -129,7 +129,7 @@ COPY ./mim2gene.txt /usr/local/bin/Intervar/intervardb/mim2gene.txt
 ENV NGINX_MAX_UPLOAD 0
 
 # Which uWSGI .ini file should be used, to make it customizable
-ENV UWSGI_INI /usr/local/bin/AVA/uwsgi.ini
+ENV UWSGI_INI /usr/local/bin/AVA/server/uwsgi.ini
 # URL under which static (not modified by Python) files will be requested
 # They will be served by Nginx directly, without being handled by uWSGI
 ENV STATIC_URL /static
