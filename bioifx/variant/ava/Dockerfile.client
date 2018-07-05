@@ -4,12 +4,12 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
   && apt-get update -y \
-  && apt-get install -y vim wget curl unzip default-jre
+  && apt-get install -y vim wget curl unzip default-jre git
 
 RUN set -ex \
   && mkdir -p /usr/local/bin/sencha-sdks
 
-WORKDIR /usr/local/bin/sencha-sdks
+WORKDIR /usr/local/bin
 
 COPY ext-6.2.0-gpl.zip /usr/local/bin/sencha-sdks/sdk.zip 
 
@@ -17,7 +17,7 @@ RUN set -ex \
   && unzip /usr/local/bin/sencha-sdks/sdk.zip -d /usr/local/bin/sencha-sdks 
 
 RUN set -ex \
-  && wget -O /usr/local/bin/sencha-sdks/cmd.zip http://cdn.sencha.com/cmd/6.5.3/no-jre/SenchaCmd-6.5.3-linux-amd64.sh.zip \
+  && wget -O /usr/local/bin/sencha-sdks/cmd.zip http://cdn.sencha.com/cmd/6.5.3.6/no-jre/SenchaCmd-6.5.3.6-linux-amd64.sh.zip \
   && unzip -p /usr/local/bin/sencha-sdks/cmd.zip > /usr/local/bin/sencha-sdks/cmd.sh
 
 RUN set -ex \
@@ -25,3 +25,21 @@ RUN set -ex \
   && /usr/local/bin/sencha-sdks/cmd.sh -q
 
 ENV PATH $PATH:/root/bin/Sencha/Cmd
+
+RUN set -ex \
+  && git clone https://github.com/dst-umms/AVA.git AVA-git
+
+RUN set -ex \
+  && mkdir -p /usr/local/bin/AVA \
+  && sencha config --prop sencha.sdk.path=/usr/local/bin/sencha-sdks --save \
+  && cd /usr/local/bin/AVA \
+  && sencha app init --ext@6.2.0 --classic AVA \
+  && cp /usr/local/bin/AVA-git/client/app.js /usr/local/bin/AVA/app.js \
+  && rm -rf /usr/local/bin/AVA/app \
+  && cp -rf /usr/local/bin/AVA-git/client/app /usr/local/bin/AVA/app
+
+WORKDIR /usr/local/bin/AVA
+
+CMD sencha app watch --port 80
+
+
