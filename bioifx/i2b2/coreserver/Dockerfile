@@ -76,7 +76,7 @@ RUN set -ex \
   && cd i2b2-core-server \
   && git checkout -b stable_one 6925c2602440d1d58768ace2da18ba62003e950e \
   && cd .. \
-  && git clone https://github.com/i2b2/i2b2-data
+  && git clone https://github.com/i2b2/i2b2-data 
 
 COPY config/data-repo/db.Crcdata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Crcdata/db.properties
 COPY config/hive/db.Hivedata.properties /opt/jboss/i2b2/i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Hivedata/db.properties
