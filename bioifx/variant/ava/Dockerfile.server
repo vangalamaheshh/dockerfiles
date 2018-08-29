@@ -121,6 +121,9 @@ RUN set -ex \
   && conda env update -f /usr/local/bin/AVA/env/requirements.yaml \
   && conda env create -f /usr/local/bin/AVA/env/py2_env.yaml
 
+RUN set -ex \
+  && gunzip /usr/local/bin/AVA/server/utils/db/clinvar/clinvar_20180701.vcf.gz
+
 #COPY ./mim2gene.txt /usr/local/bin/Intervar/intervardb/mim2gene.txt
 # set up flask with nginx
 # By default, allow unlimited file sizes, modify it to limit the file sizes
