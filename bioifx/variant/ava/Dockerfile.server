@@ -3,7 +3,7 @@ FROM mvangala/base-nginx:python3.6-a6bbf7331186
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
-  && pip install flask requests pandas PyVCF
+  && pip install flask requests 
 
 RUN set -ex \
   && mkdir -p /usr/local/bin
