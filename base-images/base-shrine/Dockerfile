@@ -15,11 +15,11 @@ RUN set -ex \
   && mkdir /opt/java \
   && cd /opt/java \
   && wget --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-      http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-x64.tar.gz \
-  && tar -zxvf jdk-8u152-linux-x64.tar.gz
+      http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.tar.gz \
+  && tar -zxvf jdk-8u181-linux-x64.tar.gz
 
-ENV JAVA_HOME /opt/java/jdk1.8.0_152
-ENV JRE_HOME /opt/java/jdk1.8.0_152/jre
+ENV JAVA_HOME /opt/java/jdk1.8.0_181
+ENV JRE_HOME /opt/java/jdk1.8.0_181/jre
 ENV PATH ${PATH}:${JAVA_HOME}/bin:${JRE_HOME}/bin
 
 #-----------------------------------------------------------#
