@@ -1,4 +1,4 @@
-alter session set "_ORACLE_SCRIPT"=true; -- IMPORTANT FOR 12C
+alter session set "_ORACLE_SCRIPT"=true; 
 -- login with ORACLE admin creds and insert following rows
 create user SHRINE_ONT identified by demouser;
 grant create session, connect, resource to SHRINE_ONT;

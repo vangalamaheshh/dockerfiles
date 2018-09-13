@@ -1,4 +1,4 @@
-alter session set "_ORACLE_SCRIPT"=true; -- IMPORTANT FOR 12C
+alter session set "_ORACLE_SCRIPT"=true; 
 -- login with shrine_ont creds and insert following rows
 -- I2b2 1.5 convention: Holds the SHRINE Ontology Table
    CREATE TABLE SHRINE 

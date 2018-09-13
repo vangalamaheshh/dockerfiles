@@ -2,7 +2,7 @@
 
 */
 -- ALTER TABLESPACE SYSTEM ADD DATAFILE '/u01/app/oracle/oradata/XE/userdata03.dbf' SIZE 2000M;
-alter session set "_ORACLE_SCRIPT"=true; -- IMPORTANT FOR 12C
+alter session set "_ORACLE_SCRIPT"=true; 
 
 -- CRC Data User
 create user I2B2DEMODATA identified by demouser;

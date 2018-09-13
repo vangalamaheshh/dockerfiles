@@ -1,4 +1,4 @@
-alter session set "_ORACLE_SCRIPT"=true; -- IMPORTANT FOR 12C
+alter session set "_ORACLE_SCRIPT"=true; 
 -- login with shrine_ont creds and insert following rows
 INSERT INTO SCHEMES(C_KEY, C_NAME, C_DESCRIPTION)  VALUES('SHRINE|SEX:','Demographics (Sex)','Demographics (Sex)');
 INSERT INTO SCHEMES(C_KEY, C_NAME, C_DESCRIPTION)  VALUES('SHRINE|LANGUAGE:','Demographics (Language)','Demographics (Language)');

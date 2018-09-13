@@ -1,4 +1,4 @@
-alter session set "_ORACLE_SCRIPT"=true; -- IMPORTANT FOR 12C
+alter session set "_ORACLE_SCRIPT"=true; 
 -- login with shrine_ont creds and insert following rows
 -- DELETE potential conflict entry from previous install, just to be safe.
 delete from TABLE_ACCESS where c_table_cd = 'SHRINE';

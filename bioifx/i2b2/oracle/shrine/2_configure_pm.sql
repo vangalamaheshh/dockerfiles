@@ -1,4 +1,4 @@
-alter session set "_ORACLE_SCRIPT"=true; -- IMPORTANT FOR 12C
+alter session set "_ORACLE_SCRIPT"=true;
 -- login with i2b2pm creds and insert following rows
 -- Create user shrine/demouser
 insert into PM_USER_DATA
