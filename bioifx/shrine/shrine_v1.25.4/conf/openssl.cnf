@@ -1,0 +1,9 @@
+[req]
+distinguished_name = UMMS-SHRINE
+req_extensions = v3_req
+
+[UMMS-SHRINE]
+
+
+[ v3_req ]
+basicConstraints = CA:FALSE
