@@ -42,7 +42,6 @@ ENV CATALINA_HOME "/opt/shrine/tomcat"
 #            SHRINE WAR FILES & WEB CLIENT                  #
 #                                                           #
 #-----------------------------------------------------------#
-ENV SHRINE_OLD_VERSION 1.22.8
 ENV SHRINE_VERSION 1.25.4
 ENV SHRINE_NEXUS_URL "https://repo.open.med.harvard.edu/nexus/content/groups/public/net/shrine"
 
