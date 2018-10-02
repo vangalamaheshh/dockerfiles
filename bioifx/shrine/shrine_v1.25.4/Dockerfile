@@ -77,7 +77,7 @@ COPY keys/shrine.keystore /opt/shrine/shrine.keystore
 #                COPY CONFIG FILES                           #
 #                                                            #
 #------------------------------------------------------------#
-COPY conf/shrine.conf /opt/shrine/tomcat/lib/shrine.conf
+COPY conf/shrine.ref.conf /opt/shrine/tomcat/lib/shrine.conf
 RUN set -ex \
   && mkdir -p /opt/shrine/tomcat/conf/Catalina/localhost
 COPY conf/shrine.xml /opt/shrine/tomcat/conf/Catalina/localhost/shrine.xml
