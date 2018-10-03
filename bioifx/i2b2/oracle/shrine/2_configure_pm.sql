@@ -33,6 +33,6 @@ values
 insert into PM_CELL_DATA
 (cell_id, project_path, name, method_cd, url, can_override, status_cd)
 values
-('CRC', '/SHRINE', 'SHRINE Federated Query', 'REST', 'https://localhost:6443/shrine/rest/i2b2/', 1, 'A');
+('CRC_SHRINE', '/SHRINE', 'SHRINE Federated Query', 'REST', 'https://localhost:6443/shrine/rest/i2b2/', 1, 'A');
 
 quit;
