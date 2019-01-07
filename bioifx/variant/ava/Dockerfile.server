@@ -3,7 +3,8 @@ FROM mvangala/base-nginx:python3.6-a6bbf7331186
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
-  && pip install flask requests 
+  && pip install flask requests \
+  && pip install flask_cors 
 
 RUN set -ex \
   && mkdir -p /usr/local/bin
