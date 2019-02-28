@@ -1,0 +1,12 @@
+version: "3"
+services:
+  ava:
+    image: "941130193843.dkr.ecr.us-east-1.amazonaws.com/newborn/ava:latest"
+    deploy:
+      replicas: 1
+    ports:
+      - "80:80"
+    networks:
+      - avanet
+networks:
+  avanet:
