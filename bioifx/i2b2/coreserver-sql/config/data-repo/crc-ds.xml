@@ -2,7 +2,7 @@
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema">
   <datasource jta="false" jndi-name="java:/CRCBootStrapDS"
     pool-name="CRCBootStrapDS" enabled="true" use-ccm="false">
-    <connection-url>jdbc: sqlserver://sql:1433</connection-url>
+    <connection-url>jdbc: sqlserver://sql:1433;database=i2b2hive</connection-url>
     <driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
     <driver>sqljdbc4.jar</driver>
     <security>
@@ -20,7 +20,7 @@
   </datasource>
 	<datasource jta="false" jndi-name="java:/QueryToolDemoDS"
 		pool-name="QueryToolDemoDS" enabled="true" use-ccm="false">
-		<connection-url>jdbc:sqlserver://sql:1433</connection-url>
+		<connection-url>jdbc:sqlserver://sql:1433;database=i2b2demodata</connection-url>
 		<driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
 		<driver>sqljdbc4.jar</driver>
 		<security>
