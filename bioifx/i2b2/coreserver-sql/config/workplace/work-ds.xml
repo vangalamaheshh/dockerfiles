@@ -20,7 +20,7 @@
   </datasource>  
 	<datasource jta="false" jndi-name="java:/WorkplaceDemoDS"
 		pool-name="WorkplaceDemoDS" enabled="true" use-ccm="false">
-		<connection-url>jdbc: sqlserver://sql:1433;database=i2b2workdata</connection-url>
+		<connection-url>jdbc:sqlserver://sql:1433;database=i2b2workdata</connection-url>
 		<driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
 		<driver>sqljdbc4.jar</driver>
 		<security>

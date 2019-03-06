@@ -2,7 +2,7 @@
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema">
   <datasource jta="false" jndi-name="java:/IMBootStrapDS"
     pool-name="IMBootStrapDS" enabled="true" use-ccm="false">
-    <connection-url>jdbc: sqlserver://sql:1433;database=i2b2hive</connection-url>
+    <connection-url>jdbc:sqlserver://sql:1433;database=i2b2hive</connection-url>
     <driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
     <driver>sqljdbc4.jar</driver>
     <security>
