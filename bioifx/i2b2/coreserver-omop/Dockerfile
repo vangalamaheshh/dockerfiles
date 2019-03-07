@@ -123,7 +123,7 @@ COPY config/id-mgmt/im-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.
 #                    OMOP SUPPORT                    #
 #                                                    #
 #----------------------------------------------------#
-COPY i2b2-omop-data  /opt/jboss/i2b2/i2b2-omop-data
+# Make sure you volume mount to  /opt/jboss/i2b2/i2b2-omop-data
 
 
 #---------------       EXPORT PATH     --------------#
