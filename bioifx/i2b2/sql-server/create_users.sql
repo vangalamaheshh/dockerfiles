@@ -5,7 +5,20 @@ CREATE DATABASE i2b2imdata;
 CREATE DATABASE i2b2metadata;
 CREATE DATABASE i2b2pm;
 CREATE DATABASE i2b2workdata;
+CREATE DATABASE omop;
 GO
+
+/* OMOP User */
+USE omop;
+GO
+CREATE LOGIN omop WITH PASSWORD = 'Demou$er';
+GO
+ALTER SERVER ROLE sysadmin ADD MEMBER omop;
+GO
+CREATE USER omop FOR LOGIN omop;
+GRANT ALL TO omop;
+GO
+
 
 /* CRC Data User */
 USE i2b2demodata;

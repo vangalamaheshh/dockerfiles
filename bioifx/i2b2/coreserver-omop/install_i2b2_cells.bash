@@ -22,3 +22,17 @@ for i2b2_cell in Crcdata Hivedata Imdata Metadata Pmdata Workdata; do
     ant -f data_build.xml db_${lc_cell_name}_load_data
   fi
 done
+
+# OMOP data installation
+OMOP_DIR="/opt/jboss/i2b2/i2b2-omop-data/sqlserver"
+cd ${OMOP_DIR}/CRCdata
+ant -f data_build.xml create_crcdata_tables
+ant -f data_build.xml create_procedures
+ant -f data_build.xml db_load_crc_data
+ant -f data_build.xml create_omop_views
+cd ${OMOP_DIR}/Metadata
+ant -f data_build.xml create_omop_metadata_tables
+ant -f data_build.xml db_metadata_load_data_omop
+cd ${OMOP_DIR}/Workdata
+ant -f data_build.xml create_workdata_tables
+ant -f data_build.xml db_workdata_load

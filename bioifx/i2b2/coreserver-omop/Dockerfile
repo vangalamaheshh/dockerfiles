@@ -118,6 +118,14 @@ COPY config/file-repo/file-repo.properties /opt/jboss/i2b2/i2b2-core-server/edu.
 COPY config/id-mgmt/id-mgmt.properties /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/etc/spring/im.properties
 COPY config/id-mgmt/im-ds.xml /opt/jboss/i2b2/i2b2-core-server/edu.harvard.i2b2.im/etc/jboss/im-ds.xml
 
+#----------------------------------------------------#
+#                                                    #
+#                    OMOP SUPPORT                    #
+#                                                    #
+#----------------------------------------------------#
+COPY i2b2-omop-data  /opt/jboss/i2b2/i2b2-omop-data
+
+
 #---------------       EXPORT PATH     --------------#
 ENV PATH "${JAVA_HOME}/bin:${JBOSS_HOME}/bin:${ANT_HOME}/bin:$PATH"
 
