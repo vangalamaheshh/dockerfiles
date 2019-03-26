@@ -35,4 +35,22 @@
       <share-prepared-statements>false</share-prepared-statements>
     </statement>
   </datasource>
+  <datasource jta="false" jndi-name="java:/OntologyShrineDS"
+    pool-name="OntologyDemoDS" enabled="true" use-ccm="false">
+    <connection-url>jdbc:sqlserver://sql:1433;database=shrine_ont</connection-url>
+    <driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
+    <driver>sqljdbc4.jar</driver>
+    <security>
+      <user-name>shrine_ont</user-name>
+      <password>Demou$er</password>
+    </security>
+    <validation>
+      <valid-connection-checker
+        class-name="org.jboss.jca.adapters.jdbc.extensions.mssql.MSSQLValidConnectionChecker"></valid-connection-checker>
+      <validate-on-match>false</validate-on-match>
+    </validation>
+    <statement>
+      <share-prepared-statements>false</share-prepared-statements>
+    </statement>
+  </datasource>
 </datasources>
