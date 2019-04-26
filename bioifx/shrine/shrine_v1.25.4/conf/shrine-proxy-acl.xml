@@ -1,0 +1,15 @@
+<lists>
+<whitelist>
+	<host>https://shrine-qa3.catalyst:6443</host>
+        <host>https://localhost:6443</host>
+        <host>https://10.118.12.40:6443</host>
+        <host>http://shrine-qa3-i2b2.catalyst:9090</host>
+        <host>http://10.118.12.60:9090</host>
+	<host>http://core:9090</host>
+</whitelist>
+
+<blacklist>
+	<host>http://127.0.0.1/test</host>
+</blacklist>
+
+</lists>
