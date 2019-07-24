@@ -1,4 +1,4 @@
-FROM mvangala/base-nginx:python3.6-a6bbf7331186 
+FROM mvangala/base-nginx:python3.6 
 
 MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
