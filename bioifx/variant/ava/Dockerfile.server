@@ -4,7 +4,8 @@ MAINTAINER Mahesh Vangala <vangalamaheshh@gmail.com>
 
 RUN set -ex \
   && pip install flask requests \
-  && pip install flask-cors 
+  && pip install flask-cors \
+  && pip install pyyaml 
 
 RUN set -ex \
   && mkdir -p /usr/local/bin
@@ -113,6 +114,7 @@ ENV PATH /usr/local/bin/miniconda3/bin:$PATH
 #  && gawk '{if(NF == 17) { print $0;}}' /usr/local/bin/annovar/humandb/rmsk.txt \
 #    1>/usr/local/bin/annovar/humandb/hg19_rmsk.txt
 
+ENV PYTHONPATH $PYTHONPATH:/usr/local/bin/AVA
 RUN set -ex \
 #  && rm -rf /usr/local/bin/Intervar \
 #  && rm -rf /usr/local/bin/AVA \
